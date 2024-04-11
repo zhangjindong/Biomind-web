@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@biomind-web/app-user-info": ["libs/application/usc/src/index.ts"],
       "@biomind-web/user-info": ["libs/domain/usc/src/index.ts"]
     }
   },
