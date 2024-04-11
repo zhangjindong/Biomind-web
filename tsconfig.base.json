@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@biomind-web/user-info": ["libs/domain/usc/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
