@@ -1547,6 +1547,8 @@ __metadata:
     "@nx/vite": "npm:18.2.2"
     "@nx/web": "npm:18.2.2"
     "@nx/workspace": "npm:18.2.2"
+    "@react-rxjs/core": "npm:^0.10.7"
+    "@react-rxjs/utils": "npm:^0.9.7"
     "@swc-node/register": "npm:~1.8.0"
     "@swc/cli": "npm:~0.1.62"
     "@swc/core": "npm:~1.3.85"
@@ -1575,6 +1577,7 @@ __metadata:
     prettier: "npm:^2.6.2"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
+    rxjs: "npm:^7.8.1"
     tailwindcss: "npm:3.2.7"
     typescript: "npm:~5.4.2"
     vite: "npm:~5.0.0"
@@ -2549,6 +2552,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-rxjs/core@npm:^0.10.7":
+  version: 0.10.7
+  resolution: "@react-rxjs/core@npm:0.10.7"
+  dependencies:
+    "@rx-state/core": "npm:0.1.4"
+    use-sync-external-store: "npm:^1.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    rxjs: ">=7"
+  checksum: 10c0/830f7605bf2f8c1082ffe76cc3ec2aa9ec5a340541b5ddb9d5a8f5afce1728a534084bc99c196d8f84edafdd38b80cd88a9b5a99251e2d752cb0f156fb47f575
+  languageName: node
+  linkType: hard
+
+"@react-rxjs/utils@npm:^0.9.7":
+  version: 0.9.7
+  resolution: "@react-rxjs/utils@npm:0.9.7"
+  peerDependencies:
+    "@react-rxjs/core": ">=0.1.0"
+    react: ">=16.8.0"
+    rxjs: ">=6"
+  checksum: 10c0/3f4ff7758aba798a44e5f386e81e98f3955c982e0f8306701cae64d70f21c0c8d4eb64c7f5b994f2245a2aee4700599f12500b84c49f5ef310113482fb9ee88e
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-android-arm-eabi@npm:4.14.0":
   version: 4.14.0
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.14.0"
@@ -2651,6 +2678,15 @@ __metadata:
   version: 4.14.0
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.14.0"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rx-state/core@npm:0.1.4":
+  version: 0.1.4
+  resolution: "@rx-state/core@npm:0.1.4"
+  peerDependencies:
+    rxjs: ">=7"
+  checksum: 10c0/d1ca270c87d273fae93e84ee060d66cb3f60308e00cf72b87b6fae67d9478e2375724c8bd00751bb098f83097deb03d3000e642a441168fc4f9d5af8ad009997
   languageName: node
   linkType: hard
 
@@ -9533,7 +9569,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.5.1":
+"rxjs@npm:^7.5.1, rxjs@npm:^7.8.1":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:
@@ -10707,6 +10743,15 @@ __metadata:
     querystringify: "npm:^2.1.1"
     requires-port: "npm:^1.0.0"
   checksum: 10c0/bd5aa9389f896974beb851c112f63b466505a04b4807cea2e5a3b7092f6fbb75316f0491ea84e44f66fed55f1b440df5195d7e3a8203f64fcefa19d182f5be87
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/ac4814e5592524f242921157e791b022efe36e451fe0d4fd4d204322d5433a4fc300d63b0ade5185f8e0735ded044c70bcf6d2352db0f74d097a238cebd2da02
   languageName: node
   linkType: hard
 
