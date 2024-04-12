@@ -1,0 +1,19 @@
+{
+  "name": "user-info",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/domain/usc/user-info/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/domain/usc/user-info/",
+        "main": "libs/domain/usc/user-info//src/index.ts",
+        "tsConfig": "libs/domain/usc/user-info//tsconfig.lib.json",
+        "assets": ["libs/domain/usc/user-info/*.md"]
+      }
+    }
+  }
+}

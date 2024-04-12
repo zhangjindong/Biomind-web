@@ -1,0 +1,19 @@
+{
+  "name": "api-user-info",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/services/usc/api-user-info/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/services/usc/api-user-info/",
+        "main": "libs/services/usc/api-user-info//src/index.ts",
+        "tsConfig": "libs/services/usc/api-user-info//tsconfig.lib.json",
+        "assets": ["libs/services/usc/api-user-info/*.md"]
+      }
+    }
+  }
+}

@@ -15,9 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@biomind-web/api-user-info": ["libs/services/usc/src/index.ts"],
-      "@biomind-web/app-user-info": ["libs/application/usc/src/index.ts"],
-      "@biomind-web/user-info": ["libs/domain/usc/src/index.ts"]
+      "@biomind-web/api-user-info": [
+        "libs/services/usc/api-user-info/src/index.ts"
+      ],
+      "@biomind-web/app-user-info": [
+        "libs/application/usc/app-user-info/src/index.ts"
+      ],
+      "@biomind-web/environment": ["libs/base/environment/src/index.ts"],
+      "@biomind-web/user-info": ["libs/domain/usc/user-info/src/index.ts"],
+      "@biomind-web/utils": ["libs/base/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
