@@ -1,9 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "module": "esnext",
     "outDir": "../../../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"]
+    "types": ["node", "vite/client", "../../../../vite-env.d.ts"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["vite.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
