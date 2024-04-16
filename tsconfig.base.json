@@ -22,6 +22,7 @@
         "libs/application/usc/app-user-info/src/index.ts"
       ],
       "@biomind-web/environment": ["libs/base/environment/src/index.ts"],
+      "@biomind-web/login": ["libs/component/usc/pages/login/src/index.ts"],
       "@biomind-web/user-info": ["libs/domain/usc/user-info/src/index.ts"],
       "@biomind-web/utils": ["libs/base/utils/src/index.ts"],
       "@biomind-web/utils-test": ["libs/base/utils-test/src/index.ts"]
