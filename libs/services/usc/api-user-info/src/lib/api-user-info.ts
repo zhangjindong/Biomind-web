@@ -1,5 +1,5 @@
 import { UserInfo } from '@biomind-web/user-info';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 export function apiUserInfo(): string {
   return 'api-user-info';
@@ -22,7 +22,12 @@ export const apiLogin = (
       platform,
     })
     .pipe(
-      map((response) => console.log(response)),
+      map(({ response }) =>
+        response.success
+          ? (response.data as UserInfo)
+          : (response.error_message.cn as string)
+      ),
+      tap(console.log),
       catchError((error) => {
         return of(error);
       })

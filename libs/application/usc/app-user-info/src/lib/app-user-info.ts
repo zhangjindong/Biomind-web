@@ -38,3 +38,4 @@ const logout$ = logoutUser$.pipe(mapTo({}));
 // 出口处
 // 合并登录登出，输出当前用户信息
 export const [useUserInfo, userInfo$] = bind(login$.pipe(mergeWith(logout$)));
+userInfo$.subscribe();
