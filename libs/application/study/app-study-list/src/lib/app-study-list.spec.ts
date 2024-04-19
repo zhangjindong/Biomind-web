@@ -23,10 +23,12 @@ const {
   onChangeSearchInput,
   onChangeSort,
   onChangeStudydatetime,
+  filterActions$,
+  keyChanges$,
 } = await import('./app-study-list');
 describe('appStudyList --> filter/sort', () => {
   // 对login$进行订阅，以确保流是否执行
-  const { latestEmission, subscription } = spyOnObservable(filter$);
+  const { latestEmission, subscription } = spyOnObservable(keyChanges$);
   // 确保我们在完成订阅时取消订阅，以避免内存泄漏
   afterAll(() => {
     subscription.unsubscribe();
