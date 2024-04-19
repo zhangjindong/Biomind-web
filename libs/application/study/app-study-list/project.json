@@ -1,0 +1,19 @@
+{
+  "name": "app-study-list",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/application/study/app-study-list/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/application/study/app-study-list",
+        "main": "libs/application/study/app-study-list/src/index.ts",
+        "tsConfig": "libs/application/study/app-study-list/tsconfig.lib.json",
+        "assets": ["libs/application/study/app-study-list/*.md"]
+      }
+    }
+  }
+}

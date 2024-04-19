@@ -19,6 +19,9 @@
       "@biomind-web/api-user-info": [
         "libs/services/usc/api-user-info/src/index.ts"
       ],
+      "@biomind-web/app-study-list": [
+        "libs/application/study/app-study-list/src/index.ts"
+      ],
       "@biomind-web/app-user-info": [
         "libs/application/usc/app-user-info/src/index.ts"
       ],
