@@ -9,7 +9,7 @@ const testUser = {
 };
 
 vi.doMock('@biomind-web/api-user-info', () => ({
-  apiLogin: vi.fn((username, password) =>
+  apiLogin: vi.fn(({ username, password, platform }) =>
     of(
       username !== 'test'
         ? '用户名不存在'
@@ -56,7 +56,7 @@ describe('appUserInfo --> onLogin, onLogout', () => {
 
   it('应在：登出时发出空值', () => {
     onLogin('test', '1');
-    onLogout('test');
+    onLogout();
     expect(latestEmission()).not.toEqual(testUser);
     expect(latestEmission()).toEqual({});
   });

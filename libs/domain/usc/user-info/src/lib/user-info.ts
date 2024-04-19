@@ -3,6 +3,8 @@ export function userInfo(): string {
 }
 export interface UserInfo {
   username?: string;
-  permissions?: unknown[];
+  permissions?: string[];
   access_token?: string;
+  userid?: string;
+  expires_in?: number;
 }
