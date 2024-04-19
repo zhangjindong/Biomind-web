@@ -2,29 +2,29 @@ export function studyInfo(): string {
   return 'study-info';
 }
 
-interface Page {
+export interface Page {
   row_limit_per_page?: number;
   page_number?: number;
 }
 
-interface Sort {
+export interface Sort {
   column_name?: string;
   order?: string;
 }
 
-interface StudyDateTime {
+export interface StudyDateTime {
   start_time?: string;
   end_time?: string;
 }
 
-interface Filter {
+export interface Filter {
   patient_info?: {
     column_name: Array<string>;
     value: string;
   };
   studydatetime?: StudyDateTime;
   modality?: Array<any>;
-  aistatus?: Array<any>;
+  aistatus?: Array<string>;
   station_name?: Array<any>;
 }
 

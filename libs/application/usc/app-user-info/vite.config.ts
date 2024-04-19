@@ -14,6 +14,7 @@ export default defineConfig({
   // },
 
   test: {
+    setupFiles: ['vitest-localstorage-mock'],
     globals: true,
     cache: { dir: '../../../../node_modules/.vitest' },
     environment: 'node',
