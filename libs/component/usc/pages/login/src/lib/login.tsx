@@ -9,7 +9,6 @@ export function Login(props: LoginProps) {
   const { onLogin, userinfo } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   return (
     <div
       className={
@@ -23,9 +22,11 @@ export function Login(props: LoginProps) {
         width="1920"
       />
       <div className="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
-        <div className="sm:col-span-3">
-          <div className="mt-2">{JSON.stringify(userinfo)}</div>
-        </div>
+        {typeof userinfo !== 'object' && (
+          <div className="sm:col-span-3">
+            <div className="mt-2 text-red-400">{userinfo}</div>
+          </div>
+        )}
         <div className="sm:col-span-3">
           <div className="mt-2">
             <input

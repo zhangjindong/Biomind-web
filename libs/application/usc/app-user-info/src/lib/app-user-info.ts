@@ -3,8 +3,8 @@ import { UserInfo } from '@biomind-web/user-info';
 import { bind } from '@react-rxjs/core';
 import { createSignal } from '@react-rxjs/utils';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { switchMap, startWith, of, mapTo, mergeWith } from 'rxjs';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { switchMap, startWith, of, mergeWith, tap, map } from 'rxjs';
 
 /**
  * 入口处
@@ -36,24 +36,37 @@ const login$ = loginUser$.pipe(
           platform: import.meta.env.VITE_APP_PLATFORM,
         })
   ),
-  startWith(<UserInfo>{})
+  startWith(<UserInfo>JSON.parse(localStorage.getItem('UserInfo') || '{}'))
 );
 // 实现登出
-const logout$ = logoutUser$.pipe(mapTo(<UserInfo>{}));
+const logout$ = logoutUser$.pipe(map(() => <UserInfo>{}));
 // 出口处
 // 合并登录登出，输出当前用户信息
 export const [useUserInfo, userInfo$] = bind(login$.pipe(mergeWith(logout$)));
 
+/**
+ * 控制登录后跳转路由
+ * 控制刷新
+ * @returns userinfo
+ */
 export function useUserNavigate() {
   const userinfo = useUserInfo();
   const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     if (typeof userinfo !== 'string' && !!userinfo?.userid) {
-      navigate('/');
+      location.pathname == '/login' && navigate('/');
     } else {
       navigate('/login');
     }
   }, [userinfo]);
   return userinfo;
 }
-userInfo$.subscribe();
+// 全局订阅
+userInfo$
+  .pipe(
+    tap((userinfo) =>
+      localStorage.setItem('UserInfo', JSON.stringify(userinfo))
+    )
+  )
+  .subscribe();
