@@ -1,11 +1,7 @@
-import { UserInfo } from '@biomind-web/user-info';
+import { LoginRequest, UserInfo } from '@biomind-web/user-info';
 import * as md5 from 'md5';
 import { CreateAPIMethod } from '@biomind-web/utils';
-type LoginRequest = {
-  username: string;
-  password: string;
-  platform: string;
-};
+
 
 /**
  * API 登录

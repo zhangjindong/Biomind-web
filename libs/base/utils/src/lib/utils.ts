@@ -17,7 +17,7 @@ export type BiomindResponse<T> = {
 };
 
 export type CreateAPIMethod = <
-  TInput extends Record<string, string>, // The input
+  TInput , // The input
   TOutput // The output
 >(
   opts: {

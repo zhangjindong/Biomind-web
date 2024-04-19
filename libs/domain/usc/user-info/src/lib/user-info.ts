@@ -8,3 +8,8 @@ export interface UserInfo {
   userid?: string;
   expires_in?: number;
 }
+export type LoginRequest = {
+  username: string;
+  password: string;
+  platform: string;
+};
