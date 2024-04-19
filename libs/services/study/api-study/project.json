@@ -1,0 +1,19 @@
+{
+  "name": "api-study",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/services/study/api-study/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/services/study/api-study",
+        "main": "libs/services/study/api-study/src/index.ts",
+        "tsConfig": "libs/services/study/api-study/tsconfig.lib.json",
+        "assets": ["libs/services/study/api-study/*.md"]
+      }
+    }
+  }
+}
