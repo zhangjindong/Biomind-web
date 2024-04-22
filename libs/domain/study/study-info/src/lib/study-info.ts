@@ -59,9 +59,9 @@ export interface StudyInfoBasic {
   inserttime?: string;
   completiontime?: string;
   stationname?: string;
-  imagecount?: 14;
+  imagecount?: number;
   patientage?: string;
-  is_edit?: false;
+  is_edit?: false | null;
   aistatus?: string;
   publicid?: string;
   status_info?: Array<any>;

@@ -17,6 +17,8 @@ import { map, scan, startWith, switchMap } from 'rxjs';
 import { bind } from '@react-rxjs/core';
 import { toDoubleDigit } from '@biomind-web/utils';
 
+////////////////////////////1、//默认值及辅助函数//////////////////////////////////
+// 默认过滤
 const defaultFilter: Filter = {
   patient_info: {
     column_name: [],
@@ -27,11 +29,7 @@ const defaultFilter: Filter = {
   aistatus: [],
   station_name: [],
 };
-
-const getfilter = (args: any, key: string): Filter =>
-  key == 'studydatetime'
-    ? { ...defaultFilter, studydatetime: args }
-    : defaultFilter;
+// 默认请求
 const defaultStudyListRequest: StudyListRequest = {
   diagnosis_lang: 'cn',
   filter: defaultFilter,
@@ -41,7 +39,14 @@ const defaultStudyListRequest: StudyListRequest = {
   predictor: '',
 };
 
-const getStudyDateTime = (payload: string | StudyDateTime): StudyDateTime => {
+/**
+ * 获取当前时间
+ * @param payload tody,3tody,7tody,1month,all,{start_time,end_time}
+ * @returns
+ */
+const getStudyDateTimeNow = (
+  payload: string | StudyDateTime
+): StudyDateTime => {
   const [year, month, day] = new Date(Date.now())
     .toISOString()
     .slice(0, 10)
@@ -73,10 +78,13 @@ const getStudyDateTime = (payload: string | StudyDateTime): StudyDateTime => {
       ? { start_time: start_time_1month, end_time: end_time_1month }
       : payload == 'all'
       ? {}
+      : typeof payload != 'string'
+      ? payload
       : {})
   );
 };
 
+//////////////////////////////2、//操作流////////////////////////////////
 /**
  * 首页首次打开
  */
@@ -86,7 +94,7 @@ export const [InitStudyList$, onInitStudyList] = createSignal();
  * studydatetime 检查时间 过滤修改
  */
 export const [ChangeStudydatetime$, onChangeStudydatetime] = createSignal(
-  (payload: StudyDateTime | string) => getStudyDateTime(payload)
+  (payload: StudyDateTime | string) => getStudyDateTimeNow(payload)
 );
 
 /**
@@ -115,16 +123,21 @@ export const [ChangePage$, onChangePage] = createSignal<Page>();
  */
 export const [ChangeSort$, onChangeSort] = createSignal<Sort>();
 
-// 合并所有流
+////////////////////////////////3、//合并所有操作流//////////////////////////////
+
+// 合并所有流为 key payload 模式
 export const filterActions$ = mergeWithKey({
   init: InitStudyList$.pipe(startWith(defaultStudyListRequest)),
-  studydatetime: ChangeStudydatetime$.pipe(startWith(getStudyDateTime('tody'))),
+  studydatetime: ChangeStudydatetime$.pipe(
+    startWith(getStudyDateTimeNow('tody'))
+  ),
   aistatus: ChangeAistatus$.pipe(startWith([])),
   search: ChangeSearchInput$.pipe(startWith('')),
   searchColumn: ChangeSearchColumn$.pipe(startWith([])),
   page: ChangePage$.pipe(startWith(defaultStudyListRequest.page)),
   sort: ChangeSort$.pipe(startWith(defaultStudyListRequest.sort)),
 });
+// 处理操作逻辑,合并为一个值
 export const studyListRequest$ = filterActions$.pipe(
   scan((state, action) => {
     if (action.payload) {
@@ -156,47 +169,11 @@ export const studyListRequest$ = filterActions$.pipe(
     return state;
   }, defaultStudyListRequest)
 );
+
+///////////////////////////////////4、//绑定流，释放hooks函数、触发API///////////////////////////////////////////////////////////
 export const [useStudyList, studyList$] = bind(
   studyListRequest$.pipe(switchMap(apiStudyList))
 );
-// 为每一个操作创建一个流
-// export const [filterMap, keyChanges$] = partitionByKey(
-//   filterActions$,
-//   (event) => event.type,
-//   (event$, key) =>
-//     event$.pipe(
-//       scan((state, action) => {
-//         console.log(action, state);
-//         if (action.payload) {
-//           switch (action.type) {
-//             case 'init':
-//               return state;
-//             case 'studydatetime':
-//               return {
-//                 ...state,
-//                 filter: { ...state.filter, studydatetime: action.payload },
-//               };
-//             case 'aistatus':
-//               return {
-//                 ...state,
-//                 filter: { ...state.filter, aistatus: action.payload },
-//               };
-//             case 'page':
-//               return {
-//                 ...state,
-//                 page: action.payload,
-//               };
-//             case 'sort':
-//               return {
-//                 ...state,
-//                 sort: action.payload,
-//               };
-//           }
-//         }
-//         return state;
-//       }, defaultStudyListRequest)
-//     )
-// );
-// export const filter$ = combineKeys(keyChanges$, filterMap).pipe(
-//   map((filterMap) => [...filterMap.values()])
-// );
+
+///////////////////////////////////5、//订阅////////////////////////
+studyList$.subscribe();

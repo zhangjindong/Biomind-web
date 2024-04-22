@@ -252,3 +252,10 @@ describe('appStudyList --> filter/studydatetime', () => {
     expect(latestEmission()).toEqual(testStudyList);
   });
 });
+
+describe('appStudyList --> filter/aistatus', () => {
+  it.todo('应在：初始时发出所有的studylist 不为空值');
+  it.todo('应在：点击Sucess时发出1个成功的studylist');
+  it.todo('应在：点击Failed时发出1个失败的studylist');
+  it.todo('应在：点击waiting时发出个空的studylist');
+});
