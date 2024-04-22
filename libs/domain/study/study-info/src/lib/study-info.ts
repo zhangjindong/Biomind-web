@@ -34,6 +34,7 @@ export interface StudyListRequest {
   page?: Page;
   sort?: Sort;
   user_id?: string;
+  predictor?: string;
 }
 
 export interface StudyList extends Page {
