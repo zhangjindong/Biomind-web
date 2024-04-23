@@ -3,7 +3,8 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/component/storybook-host/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:storybook"],
   "// targets": "to see all targets run: nx show project storybook-host --web",
-  "targets": {}
+  "targets": {},
+  "implicitDependencies": ["about", "login"]
 }

@@ -30,6 +30,7 @@ export function Login(props: LoginProps) {
         <div className="sm:col-span-3">
           <div className="mt-2">
             <input
+              data-testid="username"
               type="text"
               name="usernames"
               id="username"
@@ -44,6 +45,7 @@ export function Login(props: LoginProps) {
         <div className="sm:col-span-3">
           <div className="mt-2">
             <input
+              data-testid="password"
               type="password"
               name="password"
               id="password"
@@ -63,6 +65,7 @@ export function Login(props: LoginProps) {
             Cancel
           </button>
           <button
+            data-testid="submit"
             type="button"
             onClick={() => onLogin(username, password)}
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
