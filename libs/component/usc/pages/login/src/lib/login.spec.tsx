@@ -19,25 +19,23 @@ describe('Login', () => {
     expect(baseElement).toBeTruthy();
     expect(screen.getByText('用户名密码错误')).toBeInTheDocument();
   });
-  it('应在：点击登录时，正常触发onLogin', () => {
+  it('应在：点击登录时，正常触发onLogin', async () => {
     let baseElement;
-    act(() => {
-      baseElement = render(<Heading />).baseElement;
+    const onlogin = vi.fn();
+    await act(async () => {
+      baseElement = await render(<Heading onLogin={onlogin} />).baseElement;
     });
     expect(baseElement).toBeTruthy();
-    act(() => {
-      userEvent.type(screen.getByTestId('username'), 'zhangsan');
-      userEvent.type(screen.getByTestId('password'), 'password');
-    });
-    act(() => {
-      userEvent.click(screen.getByTestId('submit'));
-      console.log(Heading.args.onLogin?.mock?.lastCall);
-
-      expect(Heading.args.onLogin).toHaveBeenLastCalledWith([
-        'zhangsan',
-        'password',
-      ]);
+    await act(async () => {
+      await userEvent.type(screen.getByTestId('username'), 'zhangsan');
+      await userEvent.type(screen.getByTestId('password'), 'password');
+      await userEvent.click(screen.getByTestId('submit'));
+      expect(onlogin).toHaveBeenLastCalledWith('zhangsan', 'password');
     });
   });
-  it.todo('应在：userinfo有值时正常显示');
+  it('应在：userinfo有值时正常显示', () => {
+    const { baseElement } = render(<Error userinfo='密码错误'/>);
+    expect(baseElement).toBeTruthy();
+    expect(screen.getByText('密码错误')).toBeInTheDocument();
+  });
 });
