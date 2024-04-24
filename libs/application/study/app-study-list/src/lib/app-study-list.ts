@@ -1,5 +1,4 @@
 import {
-  StudyList,
   StudyDateTime,
   Page,
   Sort,
@@ -7,13 +6,8 @@ import {
   StudyListRequest,
 } from '@biomind-web/study-info';
 import { apiStudyList } from '@biomind-web/api-study';
-import {
-  combineKeys,
-  createSignal,
-  mergeWithKey,
-  partitionByKey,
-} from '@react-rxjs/utils';
-import { map, scan, startWith, switchMap } from 'rxjs';
+import { createSignal, mergeWithKey } from '@react-rxjs/utils';
+import { combineLatestWith, map, scan, startWith, switchMap } from 'rxjs';
 import { bind } from '@react-rxjs/core';
 import { toDoubleDigit } from '@biomind-web/utils';
 
@@ -100,7 +94,7 @@ export const [ChangeStudydatetime$, onChangeStudydatetime] = createSignal(
 /**
  * aistatus 预测状态 过滤修改
  */
-export const [ChangeAistatus$, onChangeAistatus] = createSignal();
+export const [ChangeAistatus$, onChangeAistatus] = createSignal<string[]>();
 
 /**
  * SearchValue 查询条件  过滤修改
@@ -132,8 +126,15 @@ export const filterActions$ = mergeWithKey({
     startWith(getStudyDateTimeNow('tody'))
   ),
   aistatus: ChangeAistatus$.pipe(startWith([])),
-  search: ChangeSearchInput$.pipe(startWith('')),
-  searchColumn: ChangeSearchColumn$.pipe(startWith([])),
+  search: ChangeSearchInput$.pipe(
+    startWith(''),
+    combineLatestWith(ChangeSearchColumn$.pipe(startWith([]))),
+    map(([value, column_name]) => ({
+      value,
+      column_name: value != '' ? column_name : [],
+    }))
+  ),
+  // searchColumn: ChangeSearchColumn$.pipe(startWith([])),
   page: ChangePage$.pipe(startWith(defaultStudyListRequest.page)),
   sort: ChangeSort$.pipe(startWith(defaultStudyListRequest.sort)),
 });
@@ -163,6 +164,11 @@ export const studyListRequest$ = filterActions$.pipe(
           return {
             ...state,
             sort: action.payload,
+          };
+        case 'search':
+          return {
+            ...state,
+            filter: { ...state.filter, patient_info: action.payload },
           };
       }
     }

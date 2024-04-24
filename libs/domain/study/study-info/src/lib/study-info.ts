@@ -9,7 +9,7 @@ export interface Page {
 
 export interface Sort {
   column_name?: string;
-  order?: string;
+  order?: 'DESC' | 'ASC';
 }
 
 export interface StudyDateTime {

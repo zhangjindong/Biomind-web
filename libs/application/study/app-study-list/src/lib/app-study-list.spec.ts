@@ -1,4 +1,10 @@
-import { Filter, StudyList, StudyListRequest } from '@biomind-web/study-info';
+import {
+  Filter,
+  Page,
+  Sort,
+  StudyList,
+  StudyListRequest,
+} from '@biomind-web/study-info';
 import { toDoubleDigit } from '@biomind-web/utils';
 import { spyOnObservable } from '@biomind-web/utils-test';
 import { of } from 'rxjs';
@@ -66,6 +72,20 @@ const testStudyList: StudyList = {
   ],
 };
 
+const getTestStudyListByAistatus = (
+  testStudyList: StudyList,
+  aistatus: string[]
+) => {
+  const result = {
+    ...testStudyList,
+    study_list: testStudyList.study_list?.filter(
+      (study) => !!study?.aistatus && aistatus.includes(study.aistatus)
+    ),
+  };
+  result.total = result.study_list?.length;
+  return result;
+};
+
 const defaultFilter: Filter = {
   patient_info: {
     column_name: [],
@@ -79,13 +99,21 @@ const defaultFilter: Filter = {
 const getfilter = (args: any, key: string): Filter =>
   key == 'studydatetime'
     ? { ...defaultFilter, studydatetime: args }
+    : key == 'aistatus'
+    ? { ...defaultFilter, aistatus: args }
+    : key == 'patient_info'
+    ? { ...defaultFilter, patient_info: args }
     : defaultFilter;
 // mock api
 const apiStudyList = vi.fn((searchArgs: StudyListRequest) => {
   // studyDatetime为所有时返回值，否则返回空列表
-  return Object.keys(searchArgs.filter?.studydatetime || {}).length == 0
-    ? of(testStudyList)
-    : of(testStudyListEmpty);
+  let list =
+    Object.keys(searchArgs.filter?.studydatetime || {}).length == 0
+      ? testStudyList
+      : testStudyListEmpty;
+  if (searchArgs.filter?.aistatus?.length !== 0)
+    list = getTestStudyListByAistatus(list, searchArgs.filter?.aistatus || []);
+  return of(list);
 });
 vi.doMock('@biomind-web/api-study', () => ({
   apiStudyList,
@@ -101,8 +129,6 @@ const {
   onChangeSearchInput,
   onChangeSort,
   onChangeStudydatetime,
-  filterActions$,
-  studyListRequest$,
   studyList$,
 } = await import('./app-study-list');
 
@@ -112,6 +138,41 @@ const aistatus_waiting = 'waiting';
 const station_name = 'RUCP';
 
 const column_name = ['patientname', 'patientsex'];
+
+/**
+ * aistatus 测试it
+ * @param result  实际匹配：request结果值
+ * @param aistatus
+ * @param key
+ */
+function testAistatusIt(latestEmission: () => void, aistatus: string[]) {
+  onChangeAistatus(aistatus);
+  testIt(
+    'filter',
+    latestEmission(),
+    getfilter(aistatus, 'aistatus'),
+    getTestStudyListByAistatus(testStudyList, aistatus)
+  );
+}
+/**
+ * 测试it public
+ * @param result 实际匹配：result结果值
+ * @param filterEqual 期望匹配：filter值
+ * @param resultEqual 期望匹配：result结果值
+ */
+function testIt(key: string, result: any, filterEqual: any, resultEqual: any) {
+  const requests = apiStudyList.mock.lastCall;
+
+  // 检查参数
+  expect(requests?.length).not.toEqual(0);
+
+  if (requests && requests?.length > 0) {
+    const req: StudyListRequest = requests.at(0) || {};
+    expect(req?.[key]).toEqual(filterEqual);
+  }
+  // 检查结果
+  expect(result).toEqual(resultEqual);
+}
 
 describe('appStudyList --> filter/studydatetime', () => {
   // 对login$进行订阅，以确保流是否执行
@@ -254,8 +315,141 @@ describe('appStudyList --> filter/studydatetime', () => {
 });
 
 describe('appStudyList --> filter/aistatus', () => {
-  it.todo('应在：初始时发出所有的studylist 不为空值');
-  it.todo('应在：点击Sucess时发出1个成功的studylist');
-  it.todo('应在：点击Failed时发出1个失败的studylist');
-  it.todo('应在：点击waiting时发出个空的studylist');
+  // 对login$进行订阅，以确保流是否执行
+  const { latestEmission, subscription } = spyOnObservable(studyList$);
+  // 每次执行前，清空mock
+  beforeAll(() => {
+    apiStudyList.mockClear();
+    onInitStudyList();
+    onChangeStudydatetime('all');
+  });
+  // 确保我们在完成订阅时取消订阅，以避免内存泄漏
+  afterAll(() => {
+    subscription.unsubscribe();
+  });
+  it('应在：初始时发出所有的studylist 不为空值', () => {
+    onChangeAistatus([]);
+    testIt(
+      'filter',
+      latestEmission(),
+      getfilter([], 'aistatus'),
+      testStudyList
+    );
+  });
+  it('应在：点击Sucess时发出1个成功的studylist', () => {
+    testAistatusIt(latestEmission, [aistatus_success]);
+  });
+  it('应在：点击Failed时发出1个失败的studylist', () => {
+    testAistatusIt(latestEmission, [aistatus_failed]);
+  });
+  it('应在：点击waiting时发出个空的studylist', () => {
+    testAistatusIt(latestEmission, [aistatus_waiting]);
+  });
+});
+describe('appStudyList --> Sort', () => {
+  // 对login$进行订阅，以确保流是否执行
+  const { latestEmission, subscription } = spyOnObservable(studyList$);
+  // 每次执行前，清空mock
+  beforeAll(() => {
+    apiStudyList.mockClear();
+    onInitStudyList();
+  });
+  // 确保我们在完成订阅时取消订阅，以避免内存泄漏
+  afterAll(() => {
+    subscription.unsubscribe();
+  });
+  it('应在：点击Sort时，传入正确的请求参数', () => {
+    const sortItem: Sort = { column_name: 'patientname', order: 'DESC' };
+    onChangeSort(sortItem);
+    testIt('sort', latestEmission(), sortItem, testStudyListEmpty);
+  });
+});
+describe('appStudyList --> Page', () => {
+  // 对login$进行订阅，以确保流是否执行
+  const { latestEmission, subscription } = spyOnObservable(studyList$);
+  // 每次执行前，清空mock
+  beforeAll(() => {
+    apiStudyList.mockClear();
+    onInitStudyList();
+  });
+  // 确保我们在完成订阅时取消订阅，以避免内存泄漏
+  afterAll(() => {
+    subscription.unsubscribe();
+  });
+  it('应在：点击page时，传入正确的请求参数', () => {
+    const pageItem: Page = {
+      row_limit_per_page: 1,
+      page_number: 10,
+    };
+    onChangePage(pageItem);
+    testIt('page', latestEmission(), pageItem, testStudyListEmpty);
+  });
+});
+describe('appStudyList --> Search', () => {
+  // 对login$进行订阅，以确保流是否执行
+  const { latestEmission, subscription } = spyOnObservable(studyList$);
+  // 每次执行前，清空mock
+  beforeAll(() => {
+    apiStudyList.mockClear();
+    onInitStudyList();
+  });
+  // 确保我们在完成订阅时取消订阅，以避免内存泄漏
+  afterAll(() => {
+    subscription.unsubscribe();
+  });
+  it('应在：仅仅点击SearchColumn时，不传入请求参数', () => {
+    onChangeSearchInput('');
+    const column_name: string[] = ['patientname', 'patientsex', 'patientid'];
+    const value = '';
+    const patient_info = { column_name, value };
+    onChangeSearchColumn(column_name);
+    const requests = apiStudyList.mock.lastCall;
+
+    // 检查参数
+    expect(requests?.length).not.toEqual(0);
+
+    if (requests && requests?.length > 0) {
+      const req: StudyListRequest = requests.at(0) || {};
+      expect(req?.filter?.patient_info).toEqual(defaultFilter.patient_info);
+      expect(req?.filter?.patient_info).not.toEqual(patient_info);
+    }
+    // 检查结果
+    // expect(latestEmission()).toEqual(testStudyListEmpty);
+  });
+  it('应在：仅仅点SearchInput时，正确掺入请求参数', () => {
+    onChangeSearchColumn([]);
+    const column_name: string[] = [];
+    const value = '瓣膜';
+    const patient_info = { column_name, value };
+    onChangeSearchInput(value);
+    const requests = apiStudyList.mock.lastCall;
+
+    // 检查参数
+    expect(requests?.length).not.toEqual(0);
+
+    if (requests && requests?.length > 0) {
+      const req: StudyListRequest = requests.at(0) || {};
+      expect(req?.filter?.patient_info).toEqual(patient_info);
+    }
+    // 检查结果
+    // expect(latestEmission()).toEqual(testStudyListEmpty);
+  });
+  it('应在：点SearchInput 和 SearchColumn时，正确掺入请求参数', () => {
+    const column_name: string[] = ['patientname', 'patientsex', 'patientid'];
+    const value = '瓣膜';
+    const patient_info = { column_name, value };
+    onChangeSearchColumn(column_name);
+    onChangeSearchInput(value);
+    const requests = apiStudyList.mock.lastCall;
+
+    // 检查参数
+    expect(requests?.length).not.toEqual(0);
+
+    if (requests && requests?.length > 0) {
+      const req: StudyListRequest = requests.at(0) || {};
+      expect(req?.filter?.patient_info).toEqual(patient_info);
+    }
+    // 检查结果
+    // expect(latestEmission()).toEqual(testStudyListEmpty);
+  });
 });

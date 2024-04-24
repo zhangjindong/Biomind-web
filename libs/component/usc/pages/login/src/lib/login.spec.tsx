@@ -5,7 +5,7 @@ import { composeStories } from '@storybook/react';
 import * as LoginStories from './login.stories';
 import { userEvent } from '@storybook/test';
 const { Initial, Error, Heading } = composeStories(LoginStories);
-describe('Login', () => {
+describe('component --> pages --> Login', () => {
   it('应在：初始时正常显示组件', () => {
     const { baseElement } = render(<Initial />);
     expect(baseElement).toBeTruthy();
