@@ -4,16 +4,6 @@
   "sourceRoot": "libs/component/study/pages/study-list/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/component/study/pages/study-list",
-        "main": "libs/component/study/pages/study-list/src/index.ts",
-        "tsConfig": "libs/component/study/pages/study-list/tsconfig.lib.json",
-        "assets": ["libs/component/study/pages/study-list/*.md"]
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project study-list --web",
+  "targets": {}
 }

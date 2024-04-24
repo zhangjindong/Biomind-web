@@ -4,16 +4,6 @@
   "sourceRoot": "libs/component/study/pages/study-application-setting/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/component/study/pages/study-application-setting",
-        "main": "libs/component/study/pages/study-application-setting/src/index.ts",
-        "tsConfig": "libs/component/study/pages/study-application-setting/tsconfig.lib.json",
-        "assets": ["libs/component/study/pages/study-application-setting/*.md"]
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project study-application-setting --web",
+  "targets": {}
 }

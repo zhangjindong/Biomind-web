@@ -8,7 +8,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 export default defineConfig({
   root: __dirname,
   cacheDir:
-    '../../../../../node_modules/.vite/libs/component/study/pages/study-list',
+    '../../../../../node_modules/.vite/libs/component/study/ui/study-ui',
 
   plugins: [
     react(),
@@ -27,7 +27,7 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
-    outDir: '../../../../../dist/libs/component/study/pages/study-list',
+    outDir: '../../../../../dist/libs/component/study/ui/study-ui',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
@@ -35,7 +35,7 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'study-list',
+      name: 'study-ui',
       fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
@@ -58,7 +58,7 @@ export default defineConfig({
     reporters: ['default'],
     coverage: {
       reportsDirectory:
-        '../../../../../coverage/libs/component/study/pages/study-list',
+        '../../../../../coverage/libs/component/study/ui/study-ui',
       provider: 'v8',
     },
   },

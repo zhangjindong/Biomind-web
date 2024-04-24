@@ -1,13 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Login } from './login';
-
 import { within, expect, userEvent, fn, waitFor } from '@storybook/test';
 
 const meta: Meta<typeof Login> = {
   component: Login,
   title: 'Login',
   argTypes: {
-    onLogin: { action: 'onLogin executed!' },
+    onLogin: {
+      action: 'onLogin executed!',
+      description: '登录事件',
+      type: 'function',
+      defaultValue: null,
+    },
+    userinfo: {
+      description: '响应内容、错误信息',
+      type: 'string',
+      defaultValue: null,
+    },
   },
 };
 export default meta;

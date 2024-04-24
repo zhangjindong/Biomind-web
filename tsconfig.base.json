@@ -34,30 +34,12 @@
       "@biomind-web/study-application-setting": [
         "libs/component/study/pages/study-application-setting/src/index.ts"
       ],
-      "@biomind-web/study-bar": [
-        "libs/component/study/ui/study-bar/src/index.ts"
-      ],
-      "@biomind-web/study-header": [
-        "libs/component/study/ui/study-header/src/index.ts"
-      ],
       "@biomind-web/study-info": ["libs/domain/study/study-info/src/index.ts"],
       "@biomind-web/study-list": [
         "libs/component/study/pages/study-list/src/index.ts"
       ],
-      "@biomind-web/study-nav": [
-        "libs/component/study/ui/study-nav/src/index.ts"
-      ],
-      "@biomind-web/study-pagination": [
-        "libs/component/study/ui/study-pagination/src/index.ts"
-      ],
-      "@biomind-web/study-search": [
-        "libs/component/study/ui/study-search/src/index.ts"
-      ],
-      "@biomind-web/study-tab": [
-        "libs/component/study/ui/study-tab/src/index.ts"
-      ],
-      "@biomind-web/study-table-list": [
-        "libs/component/study/ui/study-table-list/src/index.ts"
+      "@biomind-web/study-ui": [
+        "libs/component/study/ui/study-ui/src/index.ts"
       ],
       "@biomind-web/user-info": ["libs/domain/usc/user-info/src/index.ts"],
       "@biomind-web/utils": ["libs/base/utils/src/index.ts"],

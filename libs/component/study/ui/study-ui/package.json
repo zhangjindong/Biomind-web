@@ -1,5 +1,5 @@
 {
-  "name": "@biomind-web/study-list",
+  "name": "@biomind-web/study-ui",
   "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",

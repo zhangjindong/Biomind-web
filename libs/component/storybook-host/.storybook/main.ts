@@ -14,6 +14,10 @@ const config: StorybookConfig = {
       },
     },
   },
+  docs:{
+    autodocs: true,
+    defaultName:'Documentation'
+  }
 };
 
 export default config;
