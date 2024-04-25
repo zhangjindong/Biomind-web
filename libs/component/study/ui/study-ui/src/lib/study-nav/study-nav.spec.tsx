@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import StudyUi from './study-ui';
+import StudyNav from './study-nav';
 
-describe('StudyUi', () => {
+describe('StudyNav', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<StudyUi />);
+    const { baseElement } = render(<StudyNav />);
     expect(baseElement).toBeTruthy();
   });
 });

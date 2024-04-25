@@ -4,7 +4,7 @@ import { within, expect, userEvent, fn, waitFor } from '@storybook/test';
 
 const meta: Meta<typeof Login> = {
   component: Login,
-  title: 'Login',
+  title: 'Pages/UserCenter/Login',
   argTypes: {
     onLogin: {
       action: 'onLogin executed!',
