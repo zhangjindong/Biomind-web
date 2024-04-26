@@ -1,0 +1,9 @@
+{
+  "name": "brise",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/base/brise/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project brise --web",
+  "targets": {}
+}

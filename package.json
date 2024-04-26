@@ -59,6 +59,7 @@
   },
   "packageManager": "yarn@4.1.1",
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.2",
     "@react-rxjs/core": "^0.10.7",
     "@react-rxjs/utils": "^0.9.7",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",

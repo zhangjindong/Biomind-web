@@ -26,6 +26,7 @@
       "@biomind-web/app-user-info": [
         "libs/application/usc/app-user-info/src/index.ts"
       ],
+      "@biomind-web/brise": ["libs/base/brise/src/index.ts"],
       "@biomind-web/environment": ["libs/base/environment/src/index.ts"],
       "@biomind-web/login": ["libs/component/usc/pages/login/src/index.ts"],
       "@biomind-web/storybook-host": [
