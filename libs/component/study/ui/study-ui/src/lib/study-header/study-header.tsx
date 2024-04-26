@@ -1,12 +1,11 @@
-import styles from './study-header.module.css';
+import { PropsWithChildren } from 'react';
+import { TsHeaderClass } from '../shared/ui';
 /* eslint-disable-next-line */
 export interface StudyHeaderProps {}
 
-export function StudyHeader(props: StudyHeaderProps) {
+export function StudyHeader(props: PropsWithChildren<StudyHeaderProps>) {
   return (
-    <div
-      className={'w-full bg-[#233240] h-[50px] text-white flex items-center'}
-    >
+    <div className={TsHeaderClass({})}>
       <h1>Welcome to StudyHeader!</h1>
     </div>
   );

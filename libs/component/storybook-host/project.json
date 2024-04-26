@@ -6,5 +6,11 @@
   "tags": ["type:storybook"],
   "// targets": "to see all targets run: nx show project storybook-host --web",
   "targets": {},
-  "implicitDependencies": ["login"]
+  "implicitDependencies": [
+    "login",
+    "study-ui",
+    "about",
+    "study-application-setting",
+    "study-list"
+  ]
 }

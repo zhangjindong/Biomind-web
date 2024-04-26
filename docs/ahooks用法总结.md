@@ -8,7 +8,7 @@
 - **useRafState** 只在 requestAnimationFrame callback 时更新 state，一般用于性能优化。可以用于动画等和 requestAnimationFrame 有关的逻辑。
 - **useLocalStorageState** 将状态存储在 localStorage 中的 Hook；可以用于保存设置，或者登录信息
 - **useSetState** 管理 object 类型 state 的 Hooks;自动合并对象;可用于管理复杂状态
-- **useMount useMount useUnmountedRef** 可以用于涉及到 第三方cornerstone 组件初始化、卸载等功能
+- **useMount useUnmount useUnmountedRef** 可以用于涉及到 第三方cornerstone 组件初始化、卸载等功能
 
 ## Scene 场景
 

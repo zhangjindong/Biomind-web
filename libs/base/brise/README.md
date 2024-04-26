@@ -1,4 +1,4 @@
-# brise
+# [brise](https://github.com/pago/brise)
 
 This library was generated with [Nx](https://nx.dev).
 
