@@ -1,34 +1,22 @@
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, Navigate } from 'react-router-dom';
 import { Login } from '@biomind-web/login';
 import { onLogin, onLogout, useUserNavigate } from '@biomind-web/app-user-info';
+import { StudyHeader } from '@biomind-web/study-ui';
 
 export function App() {
   const userinfo = useUserNavigate();
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <div>
-            This is the generated root route.
-            <br />
-            <Link to="/page-2">Click here for page 2.</Link>
-          </div>
-        }
-      />
+      <Route path="/" element={<Navigate to="listViewer" />} />
       <Route
         path="/login"
         element={<Login onLogin={onLogin} userinfo={userinfo} />}
       />
       <Route
-        path="/page-2"
+        path="/listViewer"
         element={
           <div>
-            <button type="button" onClick={() => onLogout()}>
-              登出
-            </button>
-            <br />
-            <Link to="/">Click here to go back to root page.</Link>
+            <StudyHeader />
           </div>
         }
       />

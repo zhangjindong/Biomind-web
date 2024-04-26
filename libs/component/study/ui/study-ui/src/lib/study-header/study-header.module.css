@@ -5,3 +5,11 @@
  * .container {
  * }
 */
+.container {
+  @apply w-full bg-[#233240] h-[50px] text-white flex items-center;
+   &.bg {
+    &.tc{
+      @apply justify-center
+    }
+  } 
+}
