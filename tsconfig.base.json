@@ -28,6 +28,7 @@
       ],
       "@biomind-web/brise": ["libs/base/brise/src/index.ts"],
       "@biomind-web/environment": ["libs/base/environment/src/index.ts"],
+      "@biomind-web/iconfont": ["libs/component/iconfont/src/index.ts"],
       "@biomind-web/login": ["libs/component/usc/pages/login/src/index.ts"],
       "@biomind-web/storybook-host": [
         "libs/component/storybook-host/src/index.ts"

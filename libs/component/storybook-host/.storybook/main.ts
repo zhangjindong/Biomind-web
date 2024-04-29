@@ -3,6 +3,7 @@ console.log('================================');
 
 const config: StorybookConfig = {
   stories: [
+    '../../**/src/lib/**/*.mdx',
     '../../**/src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'
     // '../src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],

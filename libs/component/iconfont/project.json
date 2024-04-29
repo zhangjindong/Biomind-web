@@ -1,0 +1,9 @@
+{
+  "name": "iconfont",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/component/iconfont/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project iconfont --web",
+  "targets": {}
+}
