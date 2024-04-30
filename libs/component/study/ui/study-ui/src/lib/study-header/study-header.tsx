@@ -7,11 +7,8 @@ export interface StudyHeaderProps {}
 export function StudyHeader(props: PropsWithChildren<StudyHeaderProps>) {
   const { children } = props;
   return (
-    <div className={TsHeaderClass({})}>
-      <Iconfont
-        type="buju"
-        className="border border-red-500 border-solid text-4xl"
-      />
+    <div className={TsHeaderClass({ className: 'px-2 text-blue' })}>
+      <Iconfont type="biomind" className=" text-9xl " />
       {children}
     </div>
   );

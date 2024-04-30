@@ -74,7 +74,7 @@ export const styles =
   };
 
 export const property =
-  <T extends Record<string, unknown>>(
+  <T extends Record<string, string>>(
     propName: string,
     map: ObjectMap<EmbeddedExpression<T>>,
     defaultName = ''
