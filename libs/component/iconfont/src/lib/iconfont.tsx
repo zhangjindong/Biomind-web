@@ -1,14 +1,14 @@
+import classnames, { TArg, display } from 'tailwindcss-classnames';
 import '../assets/iconfont.js';
-import { styles } from '@biomind-web/brise';
-const icon = styles`
-inline-block
-${(props) => (props?.className as string) || ''}`;
-const iconSvg = styles`
-w-[1em] h-[1em]
-vertical-align-[-0.15em]
-fill-current
-overflow-hidden
-${(props) => props?.className as string || ''}`;
+
+const icon = classnames(display('inline-block'));
+const iconSvg = classnames(
+  `w-[1em]
+  h-[1em]
+  vertical-align-[-0.15em]
+  fill-current
+  overflow-hidden` as TArg
+);
 
 /* eslint-disable-next-line */
 export interface IconfontProps {
@@ -28,12 +28,13 @@ export interface IconfontProps {
 // overflow: hidden;
 export function Iconfont(props: IconfontProps) {
   return (
-    <span className={icon({ className: props?.className })}>
+    <span className={classnames(icon, props?.className as TArg)} role="img">
       <svg
-        className={iconSvg({ className: props?.svgClassName })}
+        className={classnames(iconSvg, props?.svgClassName as TArg)}
         aria-hidden="true"
         {...props.svgProps}
       >
+        <title>{props.type}</title>
         <use xlinkHref={`#icon-${props.type}`}></use>
       </svg>
     </span>

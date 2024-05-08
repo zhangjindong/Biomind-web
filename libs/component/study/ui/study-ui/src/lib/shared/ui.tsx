@@ -1,36 +1,38 @@
-import { property, styles } from '@biomind-web/brise';
+import { ClassNamesTag } from '@biomind-web/utils';
+import classnames, {
+  TArg,
+  THeight,
+  backgroundColor,
+  display,
+  flexBox,
+  height,
+  padding,
+  textColor,
+  width,
+} from 'tailwindcss-classnames';
 
-/**
- * tailwind styles
- * List Viewer herder
- * @example
- * TsHeaderClass({
- *  'overflow-hidden': true ,
- *  className:'text-red-500'
- * })
- */
-export const TsHeaderClass = styles`
-w-full
-bg-[#233240]
-h-[50px]
-text-white
-flex
-items-center
-${(props) =>
-  ((props?.className as string) || '') +
-  ' ' +
-  Object.keys(props)
-    .filter((prop) => !['className'].includes(prop) && props[prop])
-    .join(' ')}
-`;
-console.log(
-  property(
-    'size', // name of the property
-    {
-      small: 'text-2xl', // value can be a string
-      medium: styles`text-4xl`, // or a reusable style
-      large: (props) => 'text-6xl', // or a function
-    },
-    'medium' // default value
-  )
-);
+type PropsType = {
+  color: 'white' | 'zinc' | 'blue' | 'sky';
+};
+type PropsFun = (props?: PropsType) => TArg;
+export const ListViewHeaderStyles = ClassNamesTag<
+  PropsType,
+  PropsFun | string
+>`${classnames(
+  display('flex'),
+  flexBox('items-center'),
+  width('w-full'),
+  height('h-[50px]' as THeight),
+  backgroundColor('bg-slate-800'),
+  padding('pl-2')
+)} ${(props) =>
+  !props
+    ? textColor('text-white')
+    : classnames(
+        textColor({
+          'text-white': props.color === 'white',
+          'text-zinc-400': props.color === 'zinc',
+          'text-blue-600': props.color === 'blue',
+          'text-sky-600': props.color === 'sky',
+        })
+      )}`;

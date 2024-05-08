@@ -18,6 +18,7 @@ export const Heading: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByText(/Welcome to StudyHeader!/gi)).toBeTruthy();
+    await expect(canvas.findByRole('img')).toBeTruthy();
+    await expect(canvas.findByTitle('biomind')).toBeTruthy();
   },
 };
