@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { About } from './about';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<typeof About> = {
   component: About,
-  title: 'About',
+  title: 'PAGES/Study/About',
 };
 export default meta;
 type Story = StoryObj<typeof About>;

@@ -1,12 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ImageHeader } from './image-header';
-
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<typeof ImageHeader> = {
   component: ImageHeader,
-  title: 'ImageHeader',
+  title: 'UI组件/Image/ImageHeader',
 };
 export default meta;
 type Story = StoryObj<typeof ImageHeader>;
@@ -19,6 +17,7 @@ export const Heading: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByText(/Welcome to ImageHeader!/gi)).toBeTruthy();
+    await expect(canvas.findByRole('img')).toBeTruthy();
+    await expect(canvas.findByTitle('biomind')).toBeTruthy();
   },
 };

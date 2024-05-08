@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StudyHeader } from './study-header';
-
-import { within, expect, userEvent, fn, waitFor } from '@storybook/test';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<typeof StudyHeader> = {
   component: StudyHeader,

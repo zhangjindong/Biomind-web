@@ -13,6 +13,7 @@
     "study-application-setting",
     "study-list",
     "iconfont",
-    "image-viewer"
+    "image-viewer",
+    "image-ui"
   ]
 }

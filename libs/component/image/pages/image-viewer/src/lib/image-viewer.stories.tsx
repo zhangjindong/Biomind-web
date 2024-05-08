@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ImageViewer } from './image-viewer';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, expect } from '@storybook/test';
 
 const meta: Meta<typeof ImageViewer> = {
   component: ImageViewer,
-  title: 'ImageViewer',
+  title: 'PAGES/Image/ImageViewer',
 };
 export default meta;
 type Story = StoryObj<typeof ImageViewer>;
