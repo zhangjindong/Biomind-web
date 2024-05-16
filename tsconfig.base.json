@@ -20,12 +20,16 @@
       "@biomind-web/api-user-info": [
         "libs/services/usc/api-user-info/src/index.ts"
       ],
+      "@biomind-web/app-image-viewer": [
+        "libs/application/image/app-image-viewer/src/index.ts"
+      ],
       "@biomind-web/app-study-list": [
         "libs/application/study/app-study-list/src/index.ts"
       ],
       "@biomind-web/app-user-info": [
         "libs/application/usc/app-user-info/src/index.ts"
       ],
+      "@biomind-web/bm-loader": ["libs/base/loader/bm-loader/src/index.ts"],
       "@biomind-web/iconfont": ["libs/component/iconfont/src/index.ts"],
       "@biomind-web/image-ui": [
         "libs/component/image/ui/image-ui/src/index.ts"
@@ -49,7 +53,8 @@
       ],
       "@biomind-web/user-info": ["libs/domain/usc/user-info/src/index.ts"],
       "@biomind-web/utils": ["libs/base/utils/src/index.ts"],
-      "@biomind-web/utils-test": ["libs/base/utils-test/src/index.ts"]
+      "@biomind-web/utils-test": ["libs/base/utils-test/src/index.ts"],
+      "@biomind-web/viewport": ["libs/component/image/ui/viewport/src/index.ts"]
     },
     "types": ["vite-env.d.ts"]
   },

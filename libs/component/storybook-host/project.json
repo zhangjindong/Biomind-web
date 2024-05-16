@@ -14,6 +14,7 @@
     "study-list",
     "iconfont",
     "image-viewer",
-    "image-ui"
+    "image-ui",
+    "viewport"
   ]
 }

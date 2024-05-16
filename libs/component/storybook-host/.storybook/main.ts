@@ -1,6 +1,4 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-console.log('================================');
-
 const config: StorybookConfig = {
   stories: [
     '../../**/src/lib/**/*.mdx',

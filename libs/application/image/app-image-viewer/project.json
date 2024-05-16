@@ -1,0 +1,19 @@
+{
+  "name": "app-image-viewer",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/application/image/app-image-viewer/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/application/image/app-image-viewer",
+        "main": "libs/application/image/app-image-viewer/src/index.ts",
+        "tsConfig": "libs/application/image/app-image-viewer/tsconfig.lib.json",
+        "assets": ["libs/application/image/app-image-viewer/*.md"]
+      }
+    }
+  }
+}

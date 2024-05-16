@@ -15,6 +15,7 @@
     "@nx/vite": "18.2.2",
     "@nx/web": "18.2.2",
     "@nx/workspace": "18.2.2",
+    "@rxjs-insights/devtools": "^0.5.1",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/core-server": "^7.5.3",
@@ -60,6 +61,7 @@
   "packageManager": "yarn@4.2.2",
   "dependencies": {
     "@cornerstonejs/core": "^1.71.2",
+    "@cornerstonejs/dicom-image-loader": "^1.72.0",
     "@cornerstonejs/streaming-image-volume-loader": "^1.71.2",
     "@cornerstonejs/tools": "^1.71.2",
     "@emotion/is-prop-valid": "^1.2.2",
@@ -67,6 +69,7 @@
     "@react-rxjs/utils": "^0.9.7",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "ahooks": "^3.7.11",
+    "dicom-parser": "^1.8.21",
     "md5": "^2.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

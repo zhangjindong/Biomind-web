@@ -1,0 +1,17 @@
+import { init as csRenderInit } from '@cornerstonejs/core';
+import { init as csToolsInit } from '@cornerstonejs/tools';
+import { Cornerstone3DConfig } from '@cornerstonejs/core/dist/types/types';
+import { initProviders } from './initProviders';
+import { initCornerstoneDICOMImageLoader } from './initCornerstoneDICOMImageLoader';
+import { initVolumeLoader } from './initVolumeLoader';
+/**
+ * 初始化cornerstone 渲染引擎
+ */
+export const initCornerstone = async (config?: Cornerstone3DConfig) => {
+  initProviders();
+  initCornerstoneDICOMImageLoader();
+  initVolumeLoader();
+  const initialized = await csRenderInit(config);
+  csToolsInit();
+  return initialized;
+};

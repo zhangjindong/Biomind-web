@@ -14,6 +14,7 @@ export default defineConfig({
     proxy: {
       '/apiv3': proxyIP,
       '/oauth': proxyIP,
+      '/bm': proxyIP,
     },
   },
 

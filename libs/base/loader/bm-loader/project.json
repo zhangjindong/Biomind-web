@@ -1,0 +1,19 @@
+{
+  "name": "bm-loader",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/base/loader/bm-loader/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/base/loader/bm-loader",
+        "main": "libs/base/loader/bm-loader/src/index.ts",
+        "tsConfig": "libs/base/loader/bm-loader/tsconfig.lib.json",
+        "assets": ["libs/base/loader/bm-loader/*.md"]
+      }
+    }
+  }
+}
