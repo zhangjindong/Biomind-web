@@ -1,5 +1,5 @@
 import { createSignal } from '@react-rxjs/utils';
-import { combineLatest, from, mergeMap, of, switchMap, tap } from 'rxjs';
+import { combineLatest, concatMap, from, of, switchMap, tap } from 'rxjs';
 import { StackViewport$ } from './useStackViewport';
 import { SUSPENSE, bind } from '@react-rxjs/core';
 
@@ -15,7 +15,7 @@ export const setStack$ = combineLatest([ChangeImageIds$, StackViewport$]).pipe(
     from(viewport?.setStack(imageIds) || of(SUSPENSE))
   ),
   tap((id) => console.log('---id:', id)),
-  mergeMap(() => StackViewport$),
+  concatMap(() => StackViewport$),
   tap((viewport) => {
     viewport?.render();
   })

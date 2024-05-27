@@ -1668,6 +1668,7 @@ __metadata:
     "@testing-library/react": "npm:14.0.0"
     "@types/md5": "npm:^2.3.5"
     "@types/node": "npm:18.16.9"
+    "@types/pako": "npm:1.0.1"
     "@types/react": "npm:18.2.33"
     "@types/react-dom": "npm:18.2.14"
     "@typescript-eslint/eslint-plugin": "npm:^7.3.0"
@@ -1689,6 +1690,7 @@ __metadata:
     jsdom: "npm:~22.1.0"
     md5: "npm:^2.3.0"
     nx: "npm:18.2.2"
+    pako: "npm:1.0.11"
     postcss: "npm:8.4.21"
     prettier: "npm:^2.6.2"
     react: "npm:18.2.0"
@@ -6261,6 +6263,13 @@ __metadata:
   version: 2019.7.3
   resolution: "@types/offscreencanvas@npm:2019.7.3"
   checksum: 10c0/6d1dfae721d321cd2b5435f347a0e53b09f33b2f9e9333396480f592823bc323847b8169f7d251d2285cb93dbc1ba2e30741ac5cf4b1c003d660fd4c24526963
+  languageName: node
+  linkType: hard
+
+"@types/pako@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@types/pako@npm:1.0.1"
+  checksum: 10c0/69c57c9d0d9251122ffdb5f7be5ca9929f6c07e1ee3821d6225f7ab0b24fc9c359f8e50c5bccc7c1dddd093811a70443d250dfb6f21c89bf7d1b71aecf9500e0
   languageName: node
   linkType: hard
 
@@ -15145,6 +15154,13 @@ __metadata:
     lodash.flattendeep: "npm:^4.4.0"
     release-zalgo: "npm:^1.0.0"
   checksum: 10c0/2108b685fd5b2a32323aeed5caf2afef8c5fcf680527b09c7e2eaa05cf04b09a7c586860319097fc589ad028a3d94b2da68e8ab1935249aa95e8162ffd622729
+  languageName: node
+  linkType: hard
+
+"pako@npm:1.0.11":
+  version: 1.0.11
+  resolution: "pako@npm:1.0.11"
+  checksum: 10c0/86dd99d8b34c3930345b8bbeb5e1cd8a05f608eeb40967b293f72fe469d0e9c88b783a8777e4cc7dc7c91ce54c5e93d88ff4b4f060e6ff18408fd21030d9ffbe
   languageName: node
   linkType: hard
 

@@ -1,7 +1,7 @@
-import * as dicomParser from 'dicom-parser';
 import * as cornerstone from '@cornerstonejs/core';
 import * as cornerstoneTools from '@cornerstonejs/tools';
 import cornerstoneDICOMImageLoader from '@cornerstonejs/dicom-image-loader';
+import { bmParser } from '@biomind-web/bm-loader';
 //@ts-expect-error 忽略异常
 window.cornerstone = cornerstone;
 //@ts-expect-error 忽略异常
@@ -13,7 +13,8 @@ export const initCornerstoneDICOMImageLoader = () => {
   const { preferSizeOverAccuracy, useNorm16Texture } =
     cornerstone.getConfiguration().rendering;
   cornerstoneDICOMImageLoader.external.cornerstone = cornerstone;
-  cornerstoneDICOMImageLoader.external.dicomParser = dicomParser;
+  cornerstoneDICOMImageLoader.external.dicomParser = bmParser
+  ;
   cornerstoneDICOMImageLoader.configure({
     useWebWorkers: true,
     decodeConfig: {

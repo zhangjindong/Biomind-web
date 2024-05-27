@@ -1,1 +1,1 @@
-export * from './lib/bm-loader';
+export * from './lib';

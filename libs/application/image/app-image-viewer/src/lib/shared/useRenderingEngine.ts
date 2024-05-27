@@ -1,25 +1,8 @@
 import { RenderingEngine } from '@cornerstonejs/core';
 import { bind, shareLatest } from '@react-rxjs/core';
 import { createSignal } from '@react-rxjs/utils';
-import {
-  EMPTY,
-  combineLatest,
-  delay,
-  forkJoin,
-  from,
-  fromEventPattern,
-  mergeMap,
-  of,
-  retry,
-  startWith,
-  switchMap,
-  tap,
-  throwError,
-  withLatestFrom,
-  zip,
-} from 'rxjs';
+import { EMPTY, combineLatest, from, of, startWith, switchMap } from 'rxjs';
 import { initCornerstone } from './init';
-import { count } from 'console';
 
 ////////////////////////////1、//默认值及辅助函数////////////////////////
 export const defaultRenderingEngineId = 'myRenderingEngine';
