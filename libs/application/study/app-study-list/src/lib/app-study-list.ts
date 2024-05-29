@@ -123,7 +123,7 @@ export const [ChangeSort$, onChangeSort] = createSignal<Sort>();
 export const filterActions$ = mergeWithKey({
   init: InitStudyList$.pipe(startWith(defaultStudyListRequest)),
   studydatetime: ChangeStudydatetime$.pipe(
-    startWith(getStudyDateTimeNow('tody'))
+    startWith(getStudyDateTimeNow('all'))
   ),
   aistatus: ChangeAistatus$.pipe(startWith([])),
   search: ChangeSearchInput$.pipe(

@@ -1,10 +1,18 @@
 import { apiLogin } from '@biomind-web/api-user-info';
 import { UserInfo } from '@biomind-web/user-info';
-import { bind } from '@react-rxjs/core';
+import { bind, shareLatest } from '@react-rxjs/core';
 import { createSignal } from '@react-rxjs/utils';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { switchMap, startWith, of, mergeWith, tap, map } from 'rxjs';
+import {
+  switchMap,
+  startWith,
+  of,
+  mergeWith,
+  tap,
+  map,
+  connectable,
+} from 'rxjs';
 
 /**
  * 入口处
@@ -25,6 +33,9 @@ export const [logoutUser$, onLogout] = createSignal();
 
 // 实现登录
 const login$ = loginUser$.pipe(
+  tap((e) => {
+    console.log('======------===', e);
+  }),
   switchMap(({ username, password }) =>
     username == ''
       ? of('用户名不能为空')
@@ -42,7 +53,15 @@ const login$ = loginUser$.pipe(
 const logout$ = logoutUser$.pipe(map(() => <UserInfo>{}));
 // 出口处
 // 合并登录登出，输出当前用户信息
-export const [useUserInfo, userInfo$] = bind(login$.pipe(mergeWith(logout$)));
+export const [useUserInfo, userInfo$] = bind(
+  login$.pipe(
+    tap((e) => {
+      console.log('======------', e);
+    }),
+    mergeWith(logout$)
+  ),
+  {}
+);
 
 /**
  * 控制登录后跳转路由

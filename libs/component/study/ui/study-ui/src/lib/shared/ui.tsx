@@ -1,14 +1,16 @@
 import { ClassNamesTag } from '@biomind-web/utils';
 import classnames, {
   TArg,
-  THeight,
-  backgroundColor,
-  display,
+  TTailwindString,
+  backgrounds,
+  borders,
+  effects,
   flexBox,
-  height,
-  padding,
+  layout,
+  sizing,
+  spacing,
   textColor,
-  width,
+  typography,
 } from 'tailwindcss-classnames';
 
 type PropsType = {
@@ -19,12 +21,11 @@ export const ListViewHeaderStyles = ClassNamesTag<
   PropsType,
   PropsFun | string
 >`${classnames(
-  display('flex'),
+  layout('flex'),
   flexBox('items-center'),
-  width('w-full'),
-  height('h-[50px]' as THeight),
-  backgroundColor('bg-slate-800'),
-  padding('pl-2')
+  spacing('pl-2'),
+  backgrounds('bg-slate-800'),
+  sizing('w-full', 'h-[50px]' as TTailwindString)
 )} ${(props) =>
   !props
     ? textColor('text-white')
@@ -36,3 +37,17 @@ export const ListViewHeaderStyles = ClassNamesTag<
           'text-sky-600': props.color === 'sky',
         })
       )}`;
+
+export const ListViewTableStyles = ClassNamesTag`${classnames(
+  borders(
+    'border-solid',
+    'border-t-0',
+    'border-r-0',
+    'border-zinc-300',
+    '[&_.ant-table-thead_tr_th]:border-zinc-300' as TTailwindString
+  ),
+  effects('shadow-md', 'shadow-zinc-200'),
+  backgrounds('[&_.ant-table-thead_tr_th]:bg-sky-100' as TTailwindString),
+  typography('[&_.ant-table-thead_tr_th]:text-slate-600' as TTailwindString),
+  layout('[&_.ant-pagination-total-text]:flex-1' as TTailwindString)
+)}`;
