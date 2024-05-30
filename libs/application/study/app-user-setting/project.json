@@ -1,0 +1,19 @@
+{
+  "name": "app-user-setting",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/application/study/app-user-setting/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/application/study/app-user-setting",
+        "main": "libs/application/study/app-user-setting/src/index.ts",
+        "tsConfig": "libs/application/study/app-user-setting/tsconfig.lib.json",
+        "assets": ["libs/application/study/app-user-setting/*.md"]
+      }
+    }
+  }
+}

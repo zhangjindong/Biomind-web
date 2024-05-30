@@ -2,8 +2,8 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { StudyHeader } from '@biomind-web/study-ui';
 import { Suspense } from 'react';
 import { LoginPage } from './login-page';
-import { StudyListPage } from './study-list-page';
-import { ImageViewerPage } from './image-viewer-page';
+import { ImageViewerPage } from '@biomind-web/image-viewer';
+import { StudyListPage } from '@biomind-web/study-list';
 
 export function App() {
   return (

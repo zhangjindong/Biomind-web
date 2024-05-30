@@ -5,11 +5,9 @@ import {
   onChangeRenderingEngineId,
   onNewStackViewport,
   useCurrentImageId,
-  useId,
-  useRenderingEngine,
   useStackViewPort,
 } from '@biomind-web/app-image-viewer';
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { PublicViewportInput } from '@cornerstonejs/core/dist/types/types';
 import { ImageHeader } from '@biomind-web/image-ui';
 import { ViewportType } from '@cornerstonejs/core/dist/types/enums';
@@ -17,7 +15,7 @@ import { ViewportType } from '@cornerstonejs/core/dist/types/enums';
 /* eslint-disable-next-line */
 export interface ImageViewerProps {}
 
-export function ImageViewer(props: ImageViewerProps) {
+export function ImageViewerPage(props: ImageViewerProps) {
   const elementRef = useRef<HTMLDivElement | null>(null);
   // const currentImageId = useCurrentImageId();
   // const re = useRenderingEngine();
@@ -75,4 +73,4 @@ export function ImageViewer(props: ImageViewerProps) {
   );
 }
 
-export default ImageViewer;
+export default ImageViewerPage;

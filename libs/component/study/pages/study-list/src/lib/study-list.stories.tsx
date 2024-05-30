@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { StudyList } from './study-list';
+import { StudyListPage } from './study-list';
 
 import { within, expect } from '@storybook/test';
 
-const meta: Meta<typeof StudyList> = {
-  component: StudyList,
-  title: 'PAGES/Study/StudyList',
+const meta: Meta<typeof StudyListPage> = {
+  component: StudyListPage,
+  title: 'PAGES/Study/StudyListPage',
 };
 export default meta;
-type Story = StoryObj<typeof StudyList>;
+type Story = StoryObj<typeof StudyListPage>;
 
 export const Primary = {
   args: {},
@@ -18,6 +18,6 @@ export const Heading: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByText(/Welcome to StudyList!/gi)).toBeTruthy();
+    expect(canvas.getByText(/Welcome to StudyListPage!/gi)).toBeTruthy();
   },
 };

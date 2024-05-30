@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import StudyList from './study-list';
+import { StudyListPage } from './study-list';
 
 describe('StudyList', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<StudyList />);
+    const { baseElement } = render(<StudyListPage />);
     expect(baseElement).toBeTruthy();
   });
 });

@@ -5,5 +5,14 @@
   "projectType": "library",
   "tags": [],
   "// targets": "to see all targets run: nx show project study-list --web",
-  "targets": {}
+  "targets": {
+    "intl-extract": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "react-intl-universal-extract --cmd extract --source-path ./src --output-path ./src/locales/en_US.json --verbose",
+        "cwd": "libs/component/study/pages/study-list",
+        "parallel": false
+      }
+    }
+  }
 }

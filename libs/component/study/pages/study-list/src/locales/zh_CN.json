@@ -1,0 +1,21 @@
+{
+  "accessionnumber": "检查号",
+  "aistatus": "AI",
+  "bodypartexamined": "检查部位",
+  "completiontime": "预测完成时间",
+  "diagnosis": "预测结果",
+  "imagecount": "影像张数",
+  "inserttime": "预测请求时间",
+  "is_edit": "编辑",
+  "lastbuilddatetime": "图像最后更新时间",
+  "modality": "设备类型",
+  "patientage": "年龄",
+  "patientid": "患者编号",
+  "patientname": "患者姓名",
+  "patientsex": "性别",
+  "range": "序号",
+  "starttime": "预测开始时间",
+  "stationname": "设备名称",
+  "studydatetime": "检查时间",
+  "studyinstanceuid": "检查实例号"
+}

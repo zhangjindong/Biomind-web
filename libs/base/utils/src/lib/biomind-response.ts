@@ -31,7 +31,10 @@ export const CreateAPIMethod: CreateAPIMethod = (opts, callback) => (input) => {
   return ajax({
     url: opts.url,
     method: opts.method,
-    body: callback ? callback(input) : input,
+    [opts.method == 'GET' ? 'queryParams' : 'body']: callback
+      ? callback(input)
+      : input,
+
     headers: {
       Authorization: `Bearer ${
         typeof userInfo != 'string' ? userInfo?.access_token : ''

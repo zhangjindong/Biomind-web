@@ -29,6 +29,9 @@
       "@biomind-web/app-user-info": [
         "libs/application/usc/app-user-info/src/index.ts"
       ],
+      "@biomind-web/app-user-setting": [
+        "libs/application/study/app-user-setting/src/index.ts"
+      ],
       "@biomind-web/bm-loader": ["libs/base/loader/bm-loader/src/index.ts"],
       "@biomind-web/iconfont": ["libs/component/iconfont/src/index.ts"],
       "@biomind-web/image-ui": [
