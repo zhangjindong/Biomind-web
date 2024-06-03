@@ -3,13 +3,24 @@ import { useUserColumns } from '@biomind-web/app-user-setting';
 import { StudyTableList } from '@biomind-web/study-ui';
 import { SortOrder } from 'antd/es/table/interface';
 import intl from 'react-intl-universal';
+import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export function StudyListPage() {
+  const navigate = useNavigate();
   const studyList = useStudyList();
   const usercolumns = useUserColumns();
   return (
     <StudyTableList
+      onRow={(record) => {
+        return {
+          onDoubleClick: (event) => {
+            sessionStorage.setItem('selectedStudy', record.studyinstanceuid);
+            sessionStorage.setItem('selectedRow', JSON.stringify(record));
+            navigate('/imageViewer/?studyuid=' + record.studyinstanceuid);
+          },
+        };
+      }}
       columns={[
         {
           key: 'range',
@@ -121,7 +132,7 @@ export function StudyListPage() {
         .map((col, index: number, arr) => ({
           ...col,
           dataIndex: col.key,
-          sorter: true,
+          ...(Object.keys(col).includes('hidden') ? { sorter: true } : {}),
           ...(Object.keys(usercolumns.sort_columns).includes(col.key)
             ? {
                 sortOrder:

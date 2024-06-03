@@ -17,6 +17,9 @@
     "paths": {
       "@biomind-web/about": ["libs/component/study/pages/about/src/index.ts"],
       "@biomind-web/api-study": ["libs/services/study/api-study/src/index.ts"],
+      "@biomind-web/api-study-image": [
+        "libs/services/image/api-study-image/src/index.ts"
+      ],
       "@biomind-web/api-user-info": [
         "libs/services/usc/api-user-info/src/index.ts"
       ],
@@ -46,6 +49,9 @@
       ],
       "@biomind-web/study-application-setting": [
         "libs/component/study/pages/study-application-setting/src/index.ts"
+      ],
+      "@biomind-web/study-images": [
+        "libs/domain/image/study-images/src/index.ts"
       ],
       "@biomind-web/study-info": ["libs/domain/study/study-info/src/index.ts"],
       "@biomind-web/study-list": [

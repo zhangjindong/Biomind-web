@@ -12,12 +12,12 @@ export const [ChangeImageIds$, onChangeImageIds] = createSignal(
 
 export const setStack$ = combineLatest([ChangeImageIds$, StackViewport$]).pipe(
   switchMap(([imageIds, viewport]) =>
-    from(viewport?.setStack(imageIds) || of(SUSPENSE))
+    from(viewport?.[0]?.setStack(imageIds) || of(SUSPENSE))
   ),
   tap((id) => console.log('---id:', id)),
   concatMap(() => StackViewport$),
   tap((viewport) => {
-    viewport?.render();
+    viewport?.[0]?.render();
   })
 );
 

@@ -1,0 +1,19 @@
+{
+  "name": "api-study-image",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/services/image/api-study-image/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/services/image/api-study-image",
+        "main": "libs/services/image/api-study-image/src/index.ts",
+        "tsConfig": "libs/services/image/api-study-image/tsconfig.lib.json",
+        "assets": ["libs/services/image/api-study-image/*.md"]
+      }
+    }
+  }
+}

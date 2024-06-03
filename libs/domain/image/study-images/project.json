@@ -1,0 +1,19 @@
+{
+  "name": "study-images",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/domain/image/study-images/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/domain/image/study-images",
+        "main": "libs/domain/image/study-images/src/index.ts",
+        "tsConfig": "libs/domain/image/study-images/tsconfig.lib.json",
+        "assets": ["libs/domain/image/study-images/*.md"]
+      }
+    }
+  }
+}

@@ -73,6 +73,8 @@ export function useUserNavigate() {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
+    console.log('useUserNavigate() called', userinfo);
+
     if (typeof userinfo !== 'string' && !!userinfo?.userid) {
       location.pathname == '/login' && navigate('/');
     } else {
