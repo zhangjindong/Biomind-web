@@ -1,3 +1,4 @@
+import { utilities } from '@cornerstonejs/core';
 import { IImage } from '@cornerstonejs/core/dist/types/types';
 import { expose } from 'comlink';
 
@@ -139,6 +140,10 @@ const obj = {
       windowWidth: window_width,
       pixelData: pixelArray,
       pixelBufferFormat,
+      // voiRange: utilities.windowLevel.toLowHighRange(
+      //   windowWidth,
+      //   window_center
+      // ),
     };
     return cornerstoneMetaData;
   },

@@ -34,7 +34,7 @@ export const [logoutUser$, onLogout] = createSignal();
 // 实现登录
 const login$ = loginUser$.pipe(
   tap((e) => {
-    console.log('======------===', e);
+    // console.log('======------===', e);
   }),
   switchMap(({ username, password }) =>
     username == ''
@@ -44,7 +44,7 @@ const login$ = loginUser$.pipe(
       : apiLogin({
           username,
           password,
-          platform: import.meta.env.VITE_APP_PLATFORM,
+          platform: import.meta.env['VITE_APP_PLATFORM'],
         })
   ),
   startWith(<UserInfo>JSON.parse(localStorage.getItem('UserInfo') || '{}'))
@@ -56,7 +56,7 @@ const logout$ = logoutUser$.pipe(map(() => <UserInfo>{}));
 export const [useUserInfo, userInfo$] = bind(
   login$.pipe(
     tap((e) => {
-      console.log('======------', e);
+      // console.log('======------', e);
     }),
     mergeWith(logout$)
   ),
@@ -73,7 +73,7 @@ export function useUserNavigate() {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    console.log('useUserNavigate() called', userinfo);
+    // console.log('useUserNavigate() called', userinfo);
 
     if (typeof userinfo !== 'string' && !!userinfo?.userid) {
       location.pathname == '/login' && navigate('/');

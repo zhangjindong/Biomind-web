@@ -6,7 +6,13 @@
  * }
 */
 .container {
-  height: 500px;
+  height: calc(100vh - 80px);
+
+  .viewgrid {
+    height: 100%;
+    display: grid;
+    grid: 1fr 1fr/1fr 1fr;
+  }
   button {
     border: 1px solid #f00;
     margin: 1px;

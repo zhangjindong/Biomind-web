@@ -1,23 +1,41 @@
 import { createSignal } from '@react-rxjs/utils';
-import { combineLatest, concatMap, from, of, switchMap, tap } from 'rxjs';
-import { StackViewport$ } from './useStackViewport';
-import { SUSPENSE, bind } from '@react-rxjs/core';
+import { delay, map, switchMap, tap } from 'rxjs';
+import { bind } from '@react-rxjs/core';
+import { RenderingEngine$ } from './useRenderingEngine';
+import { StackViewport, imageLoader } from '@cornerstonejs/core';
 
 ////////////////////////////1、//默认值及辅助函数////////////////////////
 
 ////////////////////////////2、//操作流////////////////////////////////
 export const [ChangeImageIds$, onChangeImageIds] = createSignal(
-  (imageIds: string[]) => imageIds
+  (imageIds: string[], viewportId: string) => ({ imageIds, viewportId })
 );
 
-export const setStack$ = combineLatest([ChangeImageIds$, StackViewport$]).pipe(
-  switchMap(([imageIds, viewport]) =>
-    from(viewport?.[0]?.setStack(imageIds) || of(SUSPENSE))
+export const setStack$ = RenderingEngine$.pipe(
+  tap((r) => {
+    console.log('====setStack renderingEngine', r);
+  }),
+  switchMap((renderingEngine) =>
+    ChangeImageIds$.pipe(
+      map(({ imageIds, viewportId }) => ({
+        imageIds,
+        viewportId,
+        renderingEngine,
+      }))
+    )
   ),
-  tap((id) => console.log('---id:', id)),
-  concatMap(() => StackViewport$),
-  tap((viewport) => {
-    viewport?.[0]?.render();
+  tap((a) => {
+    console.log('====changeImageId ', a);
+  }),
+  tap(({ imageIds, viewportId, renderingEngine }) => {
+    const viewport = renderingEngine?.getViewport(viewportId) as StackViewport;
+    viewport?.setStack(imageIds);
+    viewport?.render();
+    console.log(renderingEngine.getViewports().map((x) => x.imageIds));
+  }),
+  delay(200),
+  tap(({ imageIds, viewportId, renderingEngine }) => {
+    imageLoader.loadAndCacheImages(imageIds);
   })
 );
 

@@ -1,7 +1,15 @@
 import { RenderingEngine } from '@cornerstonejs/core';
 import { bind, shareLatest } from '@react-rxjs/core';
 import { createSignal } from '@react-rxjs/utils';
-import { EMPTY, combineLatest, from, of, startWith, switchMap } from 'rxjs';
+import {
+  EMPTY,
+  combineLatest,
+  from,
+  of,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { initCornerstone } from './init';
 
 ////////////////////////////1、//默认值及辅助函数////////////////////////
@@ -14,7 +22,13 @@ export const [changeRenderingEngineId$, onChangeRenderingEngineId] =
   );
 
 const checkRenderingEngine$ = combineLatest([
-  from(initCornerstone()).pipe(startWith(false)),
+  from(initCornerstone())
+    .pipe(startWith(false))
+    .pipe(
+      tap((init) => {
+        console.log('===========', init);
+      })
+    ),
   changeRenderingEngineId$.pipe(startWith(defaultRenderingEngineId)),
 ]).pipe(
   // tap(([initialized, renderingEngineId]) =>
@@ -23,12 +37,14 @@ const checkRenderingEngine$ = combineLatest([
   switchMap(([initialized, renderingEngineId]) =>
     initialized ? of(new RenderingEngine(renderingEngineId)) : EMPTY
   ),
-  shareLatest()
+  shareLatest(),
+  tap((init) => {
+    console.log('===========checkRenderingEngine', init);
+  })
 );
 ////////////////////////////3、//合并所有操作流/////////////////////////
 ////////////////////////////4、//绑定流，释放hooks函数、触发API//////////
 export const [useRenderingEngine, RenderingEngine$] = bind(
-  checkRenderingEngine$,
-  null
+  checkRenderingEngine$
 );
 ////////////////////////////5、//订阅/////////////////////////////////

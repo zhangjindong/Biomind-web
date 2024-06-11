@@ -36,7 +36,7 @@ export const UserConfigColumns$ = userInfo$.pipe(
   switchMap((userinfo) => apiUserColumns({ user_id: userinfo?.userid || '' })),
   map((x) => x?.settings),
   tap(() => {
-    console.log('090000000');
+    // console.log('090000000');
   }),
   shareLatest()
 );

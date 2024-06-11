@@ -182,4 +182,4 @@ export const [useStudyList, studyList$] = bind(
 );
 
 ///////////////////////////////////5、//订阅////////////////////////
-studyList$.subscribe();
+// studyList$.subscribe();

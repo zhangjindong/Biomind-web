@@ -70,21 +70,21 @@ function parseDicom(
         -129 / (dataSet.uint32('width') || 0) / (dataSet.uint32('height') || 0),
     },
   }; // samplesPerPixel
-  console.log('name', dataSet.string('name'));
-  console.log('width', dataSet.uint32('width'));
-  console.log('height', dataSet.uint32('height'));
-  console.log('pitch', dataSet.uint32('pitch'));
-  console.log('sampleOfPixel', dataSet.uint32('sampleOfPixel'));
-  console.log('depth', dataSet.uint32('depth'));
-  console.log('signed', dataSet.uint32('signed'));
-  console.log('format', dataSet.uint32('format'));
-  console.log('invert', dataSet.uint32('invert'));
-  console.log('window_center', dataSet.float('window_center'));
-  console.log('window_width', dataSet.float('window_width'));
-  console.log('rescale_slope', dataSet.float('rescale_slope'));
-  console.log('rescale_intercept', dataSet.float('rescale_intercept'));
-  console.log('pixel_spacing_x', dataSet.float('pixel_spacing_x'));
-  console.log('pixel_spacing_y', dataSet.float('pixel_spacing_y'));
+  // console.log('name', dataSet.string('name'));
+  // console.log('width', dataSet.uint32('width'));
+  // console.log('height', dataSet.uint32('height'));
+  // console.log('pitch', dataSet.uint32('pitch'));
+  // console.log('sampleOfPixel', dataSet.uint32('sampleOfPixel'));
+  // console.log('depth', dataSet.uint32('depth'));
+  // console.log('signed', dataSet.uint32('signed'));
+  // console.log('format', dataSet.uint32('format'));
+  // console.log('invert', dataSet.uint32('invert'));
+  // console.log('window_center', dataSet.float('window_center'));
+  // console.log('window_width', dataSet.float('window_width'));
+  // console.log('rescale_slope', dataSet.float('rescale_slope'));
+  // console.log('rescale_intercept', dataSet.float('rescale_intercept'));
+  // console.log('pixel_spacing_x', dataSet.float('pixel_spacing_x'));
+  // console.log('pixel_spacing_y', dataSet.float('pixel_spacing_y'));
 
   // const littleEndianByteStream = new dicomParse.ByteStream(
   //   dicomParse.littleEndianByteArrayParser,

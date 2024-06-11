@@ -1,6 +1,15 @@
 import { UserInfo } from '@biomind-web/user-info';
-import { Observable, map, mergeMap, of } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
+import { redirect } from 'react-router-dom';
+import {
+  Observable,
+  catchError,
+  map,
+  mergeMap,
+  of,
+  tap,
+  throwError,
+} from 'rxjs';
+import { AjaxError, ajax } from 'rxjs/ajax';
 
 export type BiomindResponse<T> = {
   data: T;
@@ -43,6 +52,14 @@ export const CreateAPIMethod: CreateAPIMethod = (opts, callback) => (input) => {
   }).pipe(
     map((res) => <BiomindResponse<any>>res.response),
 
-    mergeMap((res) => (res.success ? of(res.data) : of(res.error_message?.cn)))
+    mergeMap((res) => (res.success ? of(res.data) : of(res.error_message?.cn))),
+    catchError((error: AjaxError) => {
+      return throwError(() => error);
+      // tap(() => {
+      //   console.log('Error: ' + error.message);
+      //   throw error;
+      // })
+      // return of(null);
+    })
   );
 };

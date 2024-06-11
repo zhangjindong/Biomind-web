@@ -2,7 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-const proxyIP = 'http://192.168.6.41';
+const proxyIP = 'http://192.168.6.104';
 
 export default defineConfig({
   root: __dirname,
