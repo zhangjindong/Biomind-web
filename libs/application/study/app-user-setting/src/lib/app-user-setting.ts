@@ -1,5 +1,6 @@
 import { apiUserColumns } from '@biomind-web/api-study';
 import { userInfo$ } from '@biomind-web/app-user-info';
+import { UserInfo } from '@biomind-web/user-info';
 import { bind, shareLatest } from '@react-rxjs/core';
 import { createSignal } from '@react-rxjs/utils';
 import { filter, map, switchMap, tap } from 'rxjs';
@@ -31,9 +32,10 @@ export const [InitUserSetting$, onInitUserSetting] = createSignal();
 ////////////////////////////////  3、//合并所有操作流//////////////////////////////
 export const UserConfigColumns$ = userInfo$.pipe(
   filter((ui) => typeof ui !== 'string'),
-  // map(([value, column_name]) => ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  switchMap((userinfo) => apiUserColumns({ user_id: userinfo?.userid || '' })),
+  map((userinfo) => userinfo as UserInfo),
+  switchMap((userinfo: UserInfo) =>
+    apiUserColumns({ user_id: userinfo?.userid || '' })
+  ),
   map((x) => x?.settings),
   tap(() => {
     // console.log('090000000');

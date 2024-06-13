@@ -119,7 +119,8 @@ export function ImageViewerPage(props: ImageViewerProps) {
         </button>
         <button
           onClick={() => {
-            utilities.cine.playClip(currentViewport?.element, { loop: true });
+            if (currentViewport)
+              utilities.cine.playClip(currentViewport?.element, { loop: true });
           }}
         >
           playClip

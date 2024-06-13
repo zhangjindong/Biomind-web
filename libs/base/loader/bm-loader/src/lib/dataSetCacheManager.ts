@@ -46,7 +46,7 @@ export function getInfo() {
 // removes all cached datasets from memory
 function purge(): void {
   loadedDataSets = {};
-  promises = {};
+  // promises = {};
   cacheSizeInBytes = 0;
 }
 

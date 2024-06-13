@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { getWebWorkerManager } from '@cornerstonejs/core';
 import BmDecodeWorker from './bm-decode-worker?worker';
 export function registerBmWebWorker() {

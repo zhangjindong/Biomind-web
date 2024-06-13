@@ -26,4 +26,9 @@ export default defineConfig({
       provider: 'v8',
     },
   },
+  resolve: {
+    alias: {
+      '@cornerstonejs/tools': '@cornerstonejs/tools/dist/umd/index.js',
+    },
+  },
 });

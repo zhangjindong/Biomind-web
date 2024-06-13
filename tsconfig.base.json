@@ -65,7 +65,7 @@
       "@biomind-web/utils-test": ["libs/base/utils-test/src/index.ts"],
       "@biomind-web/viewport": ["libs/component/image/ui/viewport/src/index.ts"]
     },
-    "types": ["vite-env.d.ts"]
+    "types": ["vite-env.d.ts", "vite/client"]
   },
   "exclude": ["node_modules", "tmp"]
 }

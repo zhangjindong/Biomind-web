@@ -6,8 +6,9 @@ import {
   WindowLevelTool,
   ZoomTool,
   addTool,
+  Enums,
 } from '@cornerstonejs/tools';
-import { MouseBindings } from '@cornerstonejs/tools/src/enums/ToolBindings';
+const { MouseBindings } = Enums;
 export const manipulationToolGroupID = 'manipulationToolGroupID';
 // 基础操作工具
 export function addManipulationTool() {

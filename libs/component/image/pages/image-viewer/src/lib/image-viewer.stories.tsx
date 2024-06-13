@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ImageViewer } from './image-viewer';
+import { ImageViewerPage } from './image-viewer';
 
 import { within, expect } from '@storybook/test';
 
-const meta: Meta<typeof ImageViewer> = {
-  component: ImageViewer,
-  title: 'PAGES/Image/ImageViewer',
+const meta: Meta<typeof ImageViewerPage> = {
+  component: ImageViewerPage,
+  title: 'PAGES/Image/ImageViewerPage',
 };
 export default meta;
-type Story = StoryObj<typeof ImageViewer>;
+type Story = StoryObj<typeof ImageViewerPage>;
 
 export const Primary = {
   args: {},

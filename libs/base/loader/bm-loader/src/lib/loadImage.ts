@@ -57,32 +57,38 @@ const loadImage: ImageLoaderFn = (imageId, options): IImageLoadObject => {
   });
   imageLoadPoolManager.addRequest(
     async () => {
-      uncompressedIterator.generate(async (it) => {
-        const compressedIt = utilities.ProgressiveIterator.as(xhrPromise);
+      uncompressedIterator.generate(
+        async (it: { add: (arg0: IImage, arg1: any) => void }) => {
+          const compressedIt = utilities.ProgressiveIterator.as(xhrPromise);
 
-        for await (const result of compressedIt) {
-          const { pixelData, done = true, extractDone = true } = result;
-          const byteArray = new Uint8Array(pixelData.slice(0, 128));
-          const dataSet = bmParser.parseDicom(byteArray, {
-            ...[tag],
-            x7fe00010: byteArray,
-          });
-          dataSetCacheManager.add(url, dataSet);
-          const transferSyntax = dataSet.string('x00020010');
-          // console.log('width', dataSet.uint32('width'));
-          // console.log('height', dataSet.uint32('height'));
-          const image = await createImage(
-            imageId,
-            pixelData.slice(128, -1),
-            dataSet
-          );
-          // add the loadTimeInMS property
-          const end = new Date().getTime();
-          image.loadTimeInMS = end - start;
-          image.transferSyntaxUID = transferSyntax;
-          it.add(image, done);
+          for await (const result of compressedIt) {
+            const { pixelData, done = true, extractDone = true } = result;
+            const byteArray = new Uint8Array(pixelData.slice(0, 128));
+            const dataSet = bmParser.parseDicom(
+              byteArray,
+              {},
+              {
+                ...[tag],
+                x7fe00010: byteArray,
+              }
+            );
+            dataSetCacheManager.add(url, dataSet);
+            const transferSyntax = dataSet.string('x00020010');
+            // console.log('width', dataSet.uint32('width'));
+            // console.log('height', dataSet.uint32('height'));
+            const image = await createImage(
+              imageId,
+              pixelData.slice(128, -1),
+              dataSet
+            );
+            // add the loadTimeInMS property
+            const end = new Date().getTime();
+            image.loadTimeInMS = end - start;
+            // image.transferSyntaxUID = transferSyntax;
+            it.add(image, done);
+          }
         }
-      });
+      );
     },
     requestType,
     additionalDetails,
@@ -145,7 +151,7 @@ const createImage = (
       },
       {
         callbacks: [
-          (progress) => {
+          (progress: any) => {
             console.debug('progress', progress);
           },
         ],
@@ -175,6 +181,7 @@ const createImage = (
           windowCenter: imageFrame.windowCenter,
           windowWidth: imageFrame.windowWidth,
           voiLUTFunction: undefined, // voiLutModule.voiLUTFunction
+
           // ? voiLutModule.voiLUTFunction
           // : undefined,
           decodeTimeInMS: imageFrame.decodeTimeInMS,
@@ -184,7 +191,7 @@ const createImage = (
           getPixelData: () => imageFrame.pixelData,
           getCanvas: undefined,
           numComps: undefined,
-        };
+        } as unknown as IImage;
         resolve(image);
       })
       .catch(reject);

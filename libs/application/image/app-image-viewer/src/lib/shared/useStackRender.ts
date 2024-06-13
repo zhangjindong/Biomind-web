@@ -31,7 +31,6 @@ export const setStack$ = RenderingEngine$.pipe(
     const viewport = renderingEngine?.getViewport(viewportId) as StackViewport;
     viewport?.setStack(imageIds);
     viewport?.render();
-    console.log(renderingEngine.getViewports().map((x) => x.imageIds));
   }),
   delay(200),
   tap(({ imageIds, viewportId, renderingEngine }) => {

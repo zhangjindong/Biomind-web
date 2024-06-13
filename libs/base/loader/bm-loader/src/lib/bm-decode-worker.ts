@@ -4,8 +4,18 @@ import { expose } from 'comlink';
 
 import { inflate } from 'pako';
 const obj = {
-  async decodeBm({ buffer, params, imageId }, ...callbacks) {
-    function convertPixel(targetPixel, pixelArray) {
+  async decodeBm(
+    {
+      buffer,
+      params,
+      imageId,
+    }: { buffer: Uint8Array; imageId: string; params: any },
+    ...callbacks: (() => any)[]
+  ) {
+    function convertPixel(
+      targetPixel: Int8Array | Uint8Array | Int16Array | Uint16Array,
+      pixelArray: Int8Array | Uint8Array | Int16Array | Uint16Array
+    ) {
       let index = 0;
       for (let i = 0; i < pixelArray.length; i += 3) {
         targetPixel[index++] = pixelArray[i];
@@ -15,11 +25,13 @@ const obj = {
       }
       return targetPixel;
     }
-    function getPixelValues(pixelData) {
+    function getPixelValues(
+      pixelData: Int8Array | Uint8Array | Int16Array | Uint16Array
+    ) {
       let minPixelValue = Number.MAX_VALUE;
       let maxPixelValue = Number.MIN_VALUE;
       const len = pixelData.length;
-      let pixel = void 0;
+      let pixel;
 
       for (let i = 0; i < len; i++) {
         pixel = pixelData[i];
@@ -32,7 +44,7 @@ const obj = {
         maxPixelValue: maxPixelValue,
       };
     }
-    let {
+    const {
       signed,
       width,
       height,
@@ -40,8 +52,6 @@ const obj = {
       format,
       pixel_spacing_x = 1,
       pixel_spacing_y = 1,
-      window_center,
-      window_width,
       rescale_intercept = 1,
       rescale_slope = 1,
       rows,
@@ -52,10 +62,12 @@ const obj = {
       depth,
       sop_instance_uid,
     } = params;
-    let pixelArray = inflate(buffer);
+    let { window_center, window_width } = params;
+    let pixelArray: Int8Array | Uint8Array | Int16Array | Uint16Array =
+      inflate(buffer);
     let pixelBufferFormat;
     let isColor = false;
-    let isRGBA = false;
+    const isRGBA = false;
     // RGB24 format The pixels are stored in 3
     if (format === 3) {
       pixelBufferFormat = 'Uint8';

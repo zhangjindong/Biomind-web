@@ -34,7 +34,14 @@ function parseDicom(
     { tag: 'pixel_spacing_y', length: 4, dataOffset: 14 * 4 }, // 4
     {
       tag: 'x00280100',
+      length: 0,
+      dataOffset: 0,
       parser: {
+        readInt16: () => 8,
+        readUint32: () => 8,
+        readInt32: () => 8,
+        readFloat: () => 8,
+        readDouble: () => 8,
         readUint16: () => 8,
       },
     }, //bitsAllocated | format
@@ -53,7 +60,7 @@ function parseDicom(
       //
       if (Object.prototype.hasOwnProperty.call(tags, key)) {
         const element = tags[key];
-        elements[key] = { tag: key, Value: element };
+        // elements[key] = { tag: key, Value: element };
       }
     }
   }
@@ -62,12 +69,19 @@ function parseDicom(
     littleEndianByteStream.byteArray,
     elements
   );
-
+  const fx00280002 = () =>
+    -129 / (dataSet.uint32('width') || 0) / (dataSet.uint32('height') || 0);
   dataSet.elements['x00280002'] = {
     tag: 'x00280002',
+    length: 0,
+    dataOffset: 0,
     parser: {
-      readUint16: () =>
-        -129 / (dataSet.uint32('width') || 0) / (dataSet.uint32('height') || 0),
+      readInt16: fx00280002,
+      readUint32: fx00280002,
+      readInt32: fx00280002,
+      readFloat: fx00280002,
+      readDouble: fx00280002,
+      readUint16: fx00280002,
     },
   }; // samplesPerPixel
   // console.log('name', dataSet.string('name'));
