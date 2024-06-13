@@ -55,6 +55,7 @@ const obj = {
     let pixelArray = inflate(buffer);
     let pixelBufferFormat;
     let isColor = false;
+    let isRGBA = false;
     // RGB24 format The pixels are stored in 3
     if (format === 3) {
       pixelBufferFormat = 'Uint8';
@@ -62,7 +63,9 @@ const obj = {
       // * {summary}{Color image in RGB24 format.}
       // * {description}{This format describes a color image. The pixels are stored in 3 consecutive bytes. The memory layout is RGB.}
       // * PixelFormat_RGB24 = 1,
-      const buf = new ArrayBuffer((pixelArray.length / 3) * 4); // RGB32
+      const buf = isRGBA
+        ? new ArrayBuffer((pixelArray.length / 3) * 4)
+        : pixelArray.buffer; // RGB32
       let pixels;
       if (signed) {
         pixels = new Int8Array(buf);
@@ -71,7 +74,9 @@ const obj = {
         pixels = new Uint8Array(buf);
         pixelBufferFormat = 'Uint8';
       }
-      pixelArray = convertPixel(pixels, pixelArray);
+      isRGBA
+        ? (pixelArray = convertPixel(pixels, pixelArray))
+        : (pixelArray = pixels);
       // RGB48 format
     } else if (format === 9) {
       // * {summary}{Color image in RGB48 format.}
@@ -140,6 +145,7 @@ const obj = {
       windowWidth: window_width,
       pixelData: pixelArray,
       pixelBufferFormat,
+      rgba: isRGBA,
       // voiRange: utilities.windowLevel.toLowHighRange(
       //   windowWidth,
       //   window_center

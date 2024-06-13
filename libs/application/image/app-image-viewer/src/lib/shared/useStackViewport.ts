@@ -3,14 +3,7 @@ import {
   PublicViewportInput,
 } from '@cornerstonejs/core/dist/types/types';
 import { createSignal } from '@react-rxjs/utils';
-import {
-  combineLatest,
-  debounceTime,
-  map,
-  tap,
-  throttleTime,
-  withLatestFrom,
-} from 'rxjs';
+import { combineLatest, map, tap, throttleTime, withLatestFrom } from 'rxjs';
 import { RenderingEngine$ } from './useRenderingEngine';
 import { bind, shareLatest } from '@react-rxjs/core';
 import { addManipulationTool } from './addTools';
@@ -64,6 +57,7 @@ export const renderStackViewport$ = StackViewportRender$.pipe(
 ////////////////////////////3、//合并所有操作流/////////////////////////
 ////////////////////////////4、//绑定流，释放hooks函数、触发API//////////
 export const [useStackViewPort, StackViewport$] = bind(enableElement$, null);
+// StackViewport$.subscribe();
 export const [useCurrentStackViewport, CurrentStackViewport$] = bind(
   getStackViewport$,
   null

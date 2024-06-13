@@ -12,13 +12,12 @@ import {
   useSericesInfo,
   useStackViewPort,
 } from '@biomind-web/app-image-viewer';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { PublicViewportInput } from '@cornerstonejs/core/dist/types/types';
 import { ImageHeader } from '@biomind-web/image-ui';
 import { ViewportType } from '@cornerstonejs/core/dist/types/enums';
 import { useSearchParams } from 'react-router-dom';
 import { utilities } from '@cornerstonejs/tools';
-import { Enums, imageLoadPoolManager, imageLoader } from '@cornerstonejs/core';
 
 /* eslint-disable-next-line */
 export interface ImageViewerProps {}
@@ -53,7 +52,7 @@ export function ImageViewerPage(props: ImageViewerProps) {
   const currentImageId = useCurrentImageId();
   const renderingEngine = useRenderingEngine();
   const sericesInfos = useSericesInfo();
-  const viewPorts = useStackViewPort();
+  useStackViewPort();
   const currentViewport = useCurrentStackViewport();
 
   useEffect(() => {
@@ -70,15 +69,14 @@ export function ImageViewerPage(props: ImageViewerProps) {
         )
     );
     window.addEventListener('resize', onStackViewportRender);
-
+  }, []);
+  useLayoutEffect(() => {
     return () => {
       window.removeEventListener('resize', onStackViewportRender);
-      viewPorts?.map((viewport) => {
-        utilities.cine.stopClip(viewport.element);
-        renderingEngine.disableElement(viewport?.id);
+      elementRef?.map((er) => {
+        if (er.ref.current) utilities.cine.stopClip(er.ref.current);
+        renderingEngine.disableElement(er.viewportId);
       });
-      // imageLoader.cancelLoadAll();
-      // renderingEngine.destroy();
     };
   }, []);
   useEffect(() => {
@@ -119,7 +117,6 @@ export function ImageViewerPage(props: ImageViewerProps) {
         <button className="" onClick={() => changeInvert()}>
           Invert
         </button>
-
         <button
           onClick={() => {
             utilities.cine.playClip(currentViewport?.element, { loop: true });

@@ -5,15 +5,12 @@ import {
 } from '@cornerstonejs/core/dist/types/types';
 import parseImageId from './parseImageId';
 import { imageLoadPoolManager, metaData, utilities } from '@cornerstonejs/core';
-import { RequestType } from '@cornerstonejs/core/dist/types/enums';
-import { url } from 'inspector';
-import { EmptyError, Subscription, lastValueFrom, map } from 'rxjs';
+import { map } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import bmParser from './bm-parser';
 import { ByteArray, DataSet } from 'dicom-parser';
 import { getWebWorkerManager } from '@cornerstonejs/core';
 import dataSetCacheManager from './dataSetCacheManager';
-import { resolve } from 'path';
 
 const workerManager = getWebWorkerManager();
 
@@ -65,16 +62,18 @@ const loadImage: ImageLoaderFn = (imageId, options): IImageLoadObject => {
 
         for await (const result of compressedIt) {
           const { pixelData, done = true, extractDone = true } = result;
-          const byteArray = new Uint8Array(pixelData);
+          const byteArray = new Uint8Array(pixelData.slice(0, 128));
           const dataSet = bmParser.parseDicom(byteArray, {
             ...[tag],
             x7fe00010: byteArray,
           });
           dataSetCacheManager.add(url, dataSet);
           const transferSyntax = dataSet.string('x00020010');
+          // console.log('width', dataSet.uint32('width'));
+          // console.log('height', dataSet.uint32('height'));
           const image = await createImage(
             imageId,
-            byteArray.slice(128, -1),
+            pixelData.slice(128, -1),
             dataSet
           );
           // add the loadTimeInMS property
@@ -156,7 +155,7 @@ const createImage = (
       .then(function (imageFrame: any) {
         const image = {
           imageId,
-          color: imageFrame.isColor,
+          color: imageFrame.color,
           calibration: null, // calibrationModule,
           columnPixelSpacing: null, // imagePlaneModule.columnPixelSpacing,
           columns: imageFrame.columns,
@@ -181,7 +180,7 @@ const createImage = (
           decodeTimeInMS: imageFrame.decodeTimeInMS,
           floatPixelData: undefined,
           imageFrame,
-          rgba: imageFrame.isColor && false,
+          rgba: imageFrame.rgba,
           getPixelData: () => imageFrame.pixelData,
           getCanvas: undefined,
           numComps: undefined,
