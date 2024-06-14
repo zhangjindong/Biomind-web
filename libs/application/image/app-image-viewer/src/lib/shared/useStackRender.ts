@@ -2,7 +2,8 @@ import { createSignal } from '@react-rxjs/utils';
 import { delay, map, switchMap, tap } from 'rxjs';
 import { bind } from '@react-rxjs/core';
 import { RenderingEngine$ } from './useRenderingEngine';
-import { StackViewport, imageLoader } from '@cornerstonejs/core';
+import { StackViewport } from '@cornerstonejs/core';
+import { utilities } from '@cornerstonejs/tools';
 
 ////////////////////////////1、//默认值及辅助函数////////////////////////
 
@@ -34,7 +35,8 @@ export const setStack$ = RenderingEngine$.pipe(
   }),
   delay(200),
   tap(({ imageIds, viewportId, renderingEngine }) => {
-    imageLoader.loadAndCacheImages(imageIds);
+    const viewport = renderingEngine?.getViewport(viewportId) as StackViewport;
+    utilities.stackPrefetch.enable(viewport.element);
   })
 );
 

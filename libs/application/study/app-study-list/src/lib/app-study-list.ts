@@ -7,7 +7,14 @@ import {
 } from '@biomind-web/study-info';
 import { apiStudyList } from '@biomind-web/api-study';
 import { createSignal, mergeWithKey } from '@react-rxjs/utils';
-import { combineLatestWith, map, scan, startWith, switchMap } from 'rxjs';
+import {
+  combineLatestWith,
+  distinctUntilChanged,
+  map,
+  scan,
+  startWith,
+  switchMap,
+} from 'rxjs';
 import { bind } from '@react-rxjs/core';
 import { toDoubleDigit } from '@biomind-web/utils';
 
@@ -135,8 +142,21 @@ export const filterActions$ = mergeWithKey({
     }))
   ),
   // searchColumn: ChangeSearchColumn$.pipe(startWith([])),
-  page: ChangePage$.pipe(startWith(defaultStudyListRequest.page)),
-  sort: ChangeSort$.pipe(startWith(defaultStudyListRequest.sort)),
+  page: ChangePage$.pipe(
+    startWith(defaultStudyListRequest.page),
+    distinctUntilChanged(
+      (prev, curr) =>
+        prev?.page_number === curr?.page_number &&
+        prev?.row_limit_per_page === curr?.row_limit_per_page
+    )
+  ),
+  sort: ChangeSort$.pipe(
+    startWith(defaultStudyListRequest.sort),
+    distinctUntilChanged(
+      (prev, curr) =>
+        prev?.column_name === curr?.column_name && prev?.order === curr?.order
+    )
+  ),
 });
 // 处理操作逻辑,合并为一个值
 export const studyListRequest$ = filterActions$.pipe(

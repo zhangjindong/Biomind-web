@@ -1,7 +1,11 @@
-import { useStudyList } from '@biomind-web/app-study-list';
+import {
+  onChangePage,
+  onChangeSort,
+  useStudyList,
+} from '@biomind-web/app-study-list';
 import { useUserColumns } from '@biomind-web/app-user-setting';
 import { StudyTableList } from '@biomind-web/study-ui';
-import { SortOrder } from 'antd/es/table/interface';
+import { SortOrder, SorterResult } from 'antd/es/table/interface';
 import intl from 'react-intl-universal';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +16,23 @@ export function StudyListPage() {
   const usercolumns = useUserColumns();
   return (
     <StudyTableList
+      onChange={(
+        pagination,
+        filters,
+        sorter:
+          | SorterResult<Record<string, any>>
+          | SorterResult<Record<string, any>>[]
+      ) => {
+        onChangePage({
+          row_limit_per_page: pagination.pageSize,
+          page_number: pagination.current,
+        });
+        if (Array.isArray(sorter)) sorter = sorter[0];
+        onChangeSort({
+          column_name: sorter.field as string,
+          order: sorter.order !== 'ascend' ? 'DESC' : 'ASC',
+        });
+      }}
       onRow={(record) => {
         return {
           onDoubleClick: (event) => {
@@ -144,7 +165,11 @@ export function StudyListPage() {
           width: arr.length === index + 1 ? undefined : col.width,
         }))}
       dataSource={studyList.study_list}
-      pagination={{ total: studyList.total }}
+      pagination={{
+        total: studyList.total,
+        pageSize: studyList.row_limit_per_page,
+        current: studyList.page_number,
+      }}
     />
   );
 }

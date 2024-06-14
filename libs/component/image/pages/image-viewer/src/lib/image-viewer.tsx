@@ -74,7 +74,10 @@ export function ImageViewerPage(props: ImageViewerProps) {
     return () => {
       window.removeEventListener('resize', onStackViewportRender);
       elementRef?.map((er) => {
-        if (er.ref.current) utilities.cine.stopClip(er.ref.current);
+        if (er.ref.current) {
+          utilities.cine.stopClip(er.ref.current);
+          utilities.stackPrefetch.disable(er.ref.current);
+        }
         renderingEngine.disableElement(er.viewportId);
       });
     };
